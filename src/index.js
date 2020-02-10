@@ -1,41 +1,11 @@
-import './style.css'
-import React from 'react'
-import ReactDOM from 'react-dom'
-import App from './app'
-import firebase from 'firebase/app';
-import * as firebaseui from 'firebaseui';
+import { LoadingPageView } from './loadingPage/loadingPageView';
 
-var app = firebase.initializeApp({
-  apiKey: "AIzaSyBU_5F_fi5VIyp3HKdR_CUa5tteCloA16U",
-  authDomain: "le-classique.firebaseapp.com",
-  databaseURL: "https://le-classique.firebaseio.com",
-  projectId: "le-classique",
-  storageBucket: "le-classique.appspot.com",
-  messagingSenderId: "652577338672",
-  appId: "1:652577338672:web:dfafb36d73647d64a084f5",
-  measurementId: "G-F44DSEG4QQ"
-});
+const loadingPageView = new LoadingPageView();
 
-var ui = new firebaseui.auth.AuthUI(firebase.auth());
+loadingPageView.render();
 
-var uiConfig = {
-  signInOptions: [
-    firebase.auth.EmailAuthProvider.PROVIDER_ID,
-    firebase.auth.GoogleAuthProvider.PROVIDER_ID,
-  ],
-  callbacks: {
-    uiShown: () => {},
-    signInSuccessWithAuthResult: (authResult, redirectUrl) => {
-      return false;
-    },
-    signInFlow: 'popup',
-    signInSuccessUrl: '/',
-  }
-}
+import('./app-loader').then(({ default: appLoader }) => {
+  appLoader.load();
 
-ui.start('#firebaseui-auth-container', uiConfig);
-
-ReactDOM.render( <
-  App title = "React Webpack boiler plate with Jake" / > ,
-  document.getElementById('app-react-root')
-)
+  loadingPageView.remove();
+}).catch(error => 'An error occured while loading the component');
