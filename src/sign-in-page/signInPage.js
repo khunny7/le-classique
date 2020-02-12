@@ -27,7 +27,7 @@ class SignInPage extends React.Component {
         },
       },
       signInFlow: 'popup',
-      signInSuccessUrl: '/',
+      signInSuccessUrl: '/dashboard',
     }
 
     ui.start('#firebaseui-auth-container', uiConfig);
@@ -35,7 +35,7 @@ class SignInPage extends React.Component {
 
   render() {
     if (firebase.auth().currentUser !== null) {
-      return (<Redirect push to="/" />)
+      return (<Redirect push to="/dashboard" />)
     }
 
     return (

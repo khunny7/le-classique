@@ -4,7 +4,11 @@ class LoadingPageView {
   render() {
     this.container = document.createElement('div');
     this.container.className = 'loading-page-container';
-    this.container.innerText = 'Loading Text';
+
+    let loadingTextDiv = document.createElement('div');
+    loadingTextDiv.className = 'loading-element'
+    loadingTextDiv.innerText = 'Loading Text';
+    this.container.appendChild(loadingTextDiv);
 
     window.document.body.appendChild(this.container);
   }

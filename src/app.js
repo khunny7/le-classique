@@ -7,16 +7,13 @@ import {
 } from 'react-router-dom';
 import { Redirect } from 'react-router';
 import { SignInPage } from './sign-in-page/signInPage';
+import { DashboardPage } from './dashboard/dashboard-page';
 import JakeTheDog from '../assets/jake.png'
 import firebase from 'firebase/app';
 
 class App extends React.Component {
   constructor(props) {
-    super(props)
-
-    this.state = {
-      isJakeVisible: false
-    }
+    super(props);
 
     const auth = firebase.auth();
 
@@ -33,24 +30,8 @@ class App extends React.Component {
     });
 
     this.state = {
-      isJakeVisible: false,
       currentUser: auth.currentUser,
     }
-
-    this.showJake = this.showJake.bind(this)
-    this.hideJake = this.hideJake.bind(this)
-  }
-
-  showJake() {
-    this.setState({
-      isJakeVisible: true
-    })
-  }
-
-  hideJake() {
-    this.setState({
-      isJakeVisible: false
-    })
   }
 
   render() {
@@ -73,10 +54,8 @@ class App extends React.Component {
           <Redirect push to="/login" />
         }
         <Switch>
-          <Route path="/about">
-            <div>
-              About
-            </div>
+          <Route path="/dashboard">
+            <DashboardPage />
           </Route>
           <Route path="/users">
             <div>
@@ -85,14 +64,6 @@ class App extends React.Component {
           </Route>
           <Route path="/login">
             <SignInPage />
-          </Route>
-          <Route path="/">
-            <div>
-              <h1 className="tomato-color">
-                {this.props.title}
-              </h1>
-              {showJakeComponent()}
-            </div>
           </Route>
         </Switch>
       </Router>
