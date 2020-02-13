@@ -10,6 +10,7 @@ import { SignInPage } from './sign-in-page/signInPage';
 import { DashboardPage } from './dashboard/dashboard-page';
 import JakeTheDog from '../assets/jake.png'
 import firebase from 'firebase/app';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 class App extends React.Component {
   constructor(props) {

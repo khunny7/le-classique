@@ -11,7 +11,11 @@ module.exports = {
   },
   devtool: 'inline-source-map',
   devServer: {
-    contentBase: './public'
+    contentBase: './public',
+    historyApiFallback: {
+      index: '/index.html'
+    },
+    index: 'index.html'
   },
   module: {
     rules: [{
