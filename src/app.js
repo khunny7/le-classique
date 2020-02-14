@@ -3,12 +3,12 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Link
+  useLocation,
 } from 'react-router-dom';
 import { Redirect } from 'react-router';
 import { SignInPage } from './sign-in-page/signInPage';
 import { DashboardPage } from './dashboard/dashboard-page';
-import JakeTheDog from '../assets/jake.png'
+import { BookReaderPage } from './reader/book-reader-page';
 import firebase from 'firebase/app';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -36,18 +36,6 @@ class App extends React.Component {
   }
 
   render() {
-    const showJakeComponent = () => {
-      if (this.state.isJakeVisible) {
-        return (
-          <img src={JakeTheDog} onClick={this.hideJake}></img>
-        )
-      } else {
-        return (
-          <button onClick={this.showJake}>Show Jake</button>
-        )
-      }
-    }
-
     return (
       <Router>
         {
@@ -65,6 +53,9 @@ class App extends React.Component {
           </Route>
           <Route path="/login">
             <SignInPage />
+          </Route>
+          <Route path="/book">
+            <BookReaderPage />
           </Route>
         </Switch>
       </Router>
