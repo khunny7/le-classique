@@ -11,6 +11,8 @@ class Book {
     this.author = data.author;
     this.description = data.description;
     this.title = data.title;
+    this.cover = data.cover;
+    this.bookData = data.bookData;
   }
 }
 

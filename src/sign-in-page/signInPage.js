@@ -3,13 +3,14 @@ import firebase from 'firebase/app';
 import * as firebaseui from 'firebaseui';
 import { Redirect } from 'react-router';
 
+// TODO: use withRouter 
 class SignInPage extends React.Component {
   constructor(props) {
     super(props);
   }
 
   componentDidMount() {
-    if (firebase.auth().currentUser !== null) {
+    if (firebase.auth().currentUser !== null) {      
       return;
     }
 

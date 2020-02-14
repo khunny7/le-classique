@@ -15,8 +15,7 @@ class BookListView extends React.Component {
             return (
               <BookListItemView
                 key={bookDataItem.id}
-                title={bookDataItem.title}
-                description={bookDataItem.description} />
+                book={bookDataItem} />
             );
           })
         }
