@@ -7,14 +7,13 @@ class DashboardPage extends React.Component {
   constructor(props) {
     super(props);
 
-    this.bookRepository = new BookRepository();
     this.state = {
       books: [],
     };
   }
 
   componentDidMount() {
-    this.bookRepository.get().then((books) => {
+    BookRepository.get().then((books) => {
       this.setState({
         books,
       });
@@ -33,8 +32,8 @@ class DashboardPage extends React.Component {
         </Jumbotron>
         <BookListView books={this.state.books} />
       </div>
-    )
+    );
   }
 }
 
-export { DashboardPage }
+export { DashboardPage };
