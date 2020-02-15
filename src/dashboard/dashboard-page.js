@@ -1,7 +1,7 @@
 import React from 'react';
 import { Jumbotron, Button } from 'react-bootstrap';
-import { BookListView } from './book-list-view';
-import { BookRepository } from '../data/book-repository';
+import BookListView from './book-list-view';
+import BookRepository from '../data/book-repository';
 
 class DashboardPage extends React.Component {
   constructor(props) {
@@ -21,6 +21,7 @@ class DashboardPage extends React.Component {
   }
 
   render() {
+    const { books } = this.state;
     return (
       <div className="dashboard-container">
         <Jumbotron>
@@ -30,10 +31,10 @@ class DashboardPage extends React.Component {
           </p>
           <Button variant="primary">Learn more</Button>
         </Jumbotron>
-        <BookListView books={this.state.books} />
+        <BookListView books={books} />
       </div>
     );
   }
 }
 
-export { DashboardPage };
+export default DashboardPage;

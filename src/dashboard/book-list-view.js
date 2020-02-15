@@ -1,26 +1,32 @@
 import React from 'react';
-import { BookListItemView } from './book-list-item-view';
+import PropTypes from 'prop-types';
+import { Book } from '../model/book';
+import BookListItemView from './book-list-item-view';
 
-class BookListView extends React.Component {
-  constructor(props) {
-    super(props);
-  }
+const BookListView = (props/* , context */) => {
+  const { books } = props;
 
-  render() {
-    return (
-      <div className="book-list-view">
-        {
-          this.props.books
-          && this.props.books.map((bookDataItem) => (
-            <BookListItemView
-              key={bookDataItem.id}
-              book={bookDataItem}
-            />
-          ))
-        }
-      </div>
-    );
-  }
-}
+  return (
+    <div className="book-list-view">
+      {
+        books
+        && books.map((bookDataItem) => (
+          <BookListItemView
+            key={bookDataItem.id}
+            book={bookDataItem}
+          />
+        ))
+      }
+    </div>
+  );
+};
 
-export { BookListView };
+BookListView.propTypes = {
+  books: PropTypes.arrayOf(PropTypes.objectOf(Book)),
+};
+
+BookListView.defaultProps = {
+  books: [],
+};
+
+export default BookListView;

@@ -6,7 +6,7 @@ import App from './app';
 
 const appLoader = {
   load: () => {
-    const app = firebase.initializeApp({
+    firebase.initializeApp({
       apiKey: 'AIzaSyBU_5F_fi5VIyp3HKdR_CUa5tteCloA16U',
       authDomain: 'le-classique.firebaseapp.com',
       databaseURL: 'https://le-classique.firebaseio.com',

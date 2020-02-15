@@ -13,7 +13,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "webpack-dev-server --open --mode development",
     "deploy": "firebase deploy",
-    "build": "webpack"
+    "build": "webpack",
+    "eslint": "./node_modules/.bin/eslint ./src --fix"
   },
   "author": "",
   "license": "ISC",

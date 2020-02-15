@@ -1,7 +1,7 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { BookRepository } from '../data/book-repository';
+import BookRepository from '../data/book-repository';
 
 class BookReaderPageComponent extends React.Component {
   constructor(props) {
