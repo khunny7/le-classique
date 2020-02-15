@@ -28,7 +28,7 @@ const BookListItemView = (props) => {
 };
 
 BookListItemView.propTypes = {
-  book: PropTypes.objectOf(Book).isRequired,
+  book: PropTypes.instanceOf(Book).isRequired,
 };
 
 export default BookListItemView;

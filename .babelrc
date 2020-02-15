@@ -1,8 +1,0 @@
-{
-  "presets": [
-    "env",
-    "react",
-    "stage-2"
-  ],
-  "plugins": ["@babel/plugin-syntax-dynamic-import"]
-}
