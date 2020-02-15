@@ -1,26 +1,28 @@
 import firebase from 'firebase/app';
 import 'firebase/firestore';
-import { Book } from '../model/book'
+import { Book, bookConverter } from '../model/book';
+
+const bookCollection = () => firebase.firestore().collection('books');
 
 class BookRepository {
-  constructor() {
-    this.db = firebase.firestore();
-  }
-
   /**
    * @returns { books } - array of object type Book
    */
-  get() {
-    return this.db.collection("books").get().then((querySnapshot) => {
+  static get() {
+    return bookCollection().withConverter(bookConverter).get().then((querySnapshot) => querySnapshot.docs.map((querySnapshotDoc) => querySnapshotDoc.data()));
+  }
 
-      return querySnapshot.docs.map((querySnapshotDoc) => {
-        const book = new Book();
-        book.setQuerySnapshot(querySnapshotDoc);
+  static getBookById(bookId, fromCache = false) {
+    const getOptions = {
+      source: fromCache ? 'cache' : 'default',
+    };
 
-        return book;
-      });
+    const docRef = bookCollection().doc(bookId);
+
+    return docRef.withConverter(bookConverter).get(getOptions).then((doc) => doc.data()).catch((error) => {
+      console.error(error);
     });
   }
 }
 
-export { BookRepository }
+export { BookRepository };

@@ -1,19 +1,28 @@
 class Book {
-  constructor() {
-
-  }
-
-  setQuerySnapshot(querySnapshot) {
-    this.querySnapshot = querySnapshot;
-
-    this.id = this.querySnapshot.id;
-    const data = this.querySnapshot.data();
-    this.author = data.author;
-    this.description = data.description;
-    this.title = data.title;
-    this.cover = data.cover;
-    this.bookData = data.bookData;
+  constructor(id, author, description, title, cover, bookData) {
+    this.id = id;
+    this.author = author;
+    this.description = description;
+    this.title = title;
+    this.cover = cover;
+    this.bookData = bookData;
   }
 }
 
-export { Book };
+const bookConverter = {
+  toFirestore: (book) => ({
+    id: book.id,
+    author: book.author,
+    description: book.description,
+    title: book.title,
+    cover: book.cover,
+    bookData: book.bookData,
+  }),
+  fromFirestore: (snapshot, options) => {
+    const data = snapshot.data(options);
+
+    return new Book(snapshot.id, data.author, data.description, data.title, data.cover, data.bookData);
+  },
+};
+
+export { Book, bookConverter };

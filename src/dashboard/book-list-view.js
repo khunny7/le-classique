@@ -10,18 +10,17 @@ class BookListView extends React.Component {
     return (
       <div className="book-list-view">
         {
-          this.props.books &&
-          this.props.books.map((bookDataItem) => {
-            return (
-              <BookListItemView
-                key={bookDataItem.id}
-                book={bookDataItem} />
-            );
-          })
+          this.props.books
+          && this.props.books.map((bookDataItem) => (
+            <BookListItemView
+              key={bookDataItem.id}
+              book={bookDataItem}
+            />
+          ))
         }
       </div>
-    )
+    );
   }
 }
 
-export { BookListView }
+export { BookListView };

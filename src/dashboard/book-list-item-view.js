@@ -29,4 +29,4 @@ class BookListItemView extends React.Component {
   }
 }
 
-export { BookListItemView }
+export { BookListItemView };

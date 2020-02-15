@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 import {
   BrowserRouter as Router,
   Switch,
@@ -6,10 +6,10 @@ import {
   useLocation,
 } from 'react-router-dom';
 import { Redirect } from 'react-router';
-import { SignInPage } from './sign-in-page/signInPage';
-import { DashboardPage } from './dashboard/dashboard-page';
-import { BookReaderPage } from './reader/book-reader-page';
 import firebase from 'firebase/app';
+import SignInPage from './sign-in-page/signInPage';
+import { DashboardPage } from './dashboard/dashboard-page';
+import BookReaderPage from './reader/book-reader-page';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 class App extends React.Component {
@@ -32,15 +32,15 @@ class App extends React.Component {
 
     this.state = {
       currentUser: auth.currentUser,
-    }
+    };
   }
 
   render() {
     return (
       <Router>
         {
-          this.state.currentUser === null &&
-          <Redirect push to="/login" />
+          this.state.currentUser === null
+          && <Redirect push to="/login" />
         }
         <Switch>
           <Route path="/dashboard">
@@ -59,8 +59,8 @@ class App extends React.Component {
           </Route>
         </Switch>
       </Router>
-    )
+    );
   }
 }
 
-export default App
+export default App;

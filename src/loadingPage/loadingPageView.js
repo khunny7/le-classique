@@ -5,8 +5,8 @@ class LoadingPageView {
     this.container = document.createElement('div');
     this.container.className = 'loading-page-container';
 
-    let loadingTextDiv = document.createElement('div');
-    loadingTextDiv.className = 'loading-element'
+    const loadingTextDiv = document.createElement('div');
+    loadingTextDiv.className = 'loading-element';
     loadingTextDiv.innerText = 'Loading Text';
     this.container.appendChild(loadingTextDiv);
 
@@ -18,4 +18,4 @@ class LoadingPageView {
   }
 }
 
-export { LoadingPageView };
+export default LoadingPageView;
