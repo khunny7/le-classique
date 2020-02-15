@@ -19,18 +19,22 @@ class BookReaderPageComponent extends React.Component {
     const bookId = patt.exec(path)[1];
 
     BookRepository.getBookById(bookId).then((book) => {
-      this.setState({
-        book,
+      BookRepository.getBookContent(book.bookData).then((bookDataUrl) => {
+        this.setState({
+          book,
+          bookDataUrl,
+        });
       });
     });
   }
 
   render() {
-    const { book } = this.state;
+    const { book, bookDataUrl } = this.state;
     return (
       <div className="book-reader-page">
         book reader page
-        {book}
+        {book !== null && book.id}
+        {bookDataUrl !== null && bookDataUrl}
       </div>
     );
   }

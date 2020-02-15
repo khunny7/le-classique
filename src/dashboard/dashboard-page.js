@@ -10,14 +10,26 @@ class DashboardPage extends React.Component {
     this.state = {
       books: [],
     };
+
+    this.mountedState = false;
   }
 
   componentDidMount() {
+    this.mountedState = true;
+
     BookRepository.get().then((books) => {
+      // TODO: instead, canceling the data fetch is ideal
+      if (!this.mountedState) {
+        return;
+      }
       this.setState({
         books,
       });
     });
+  }
+
+  componentWillUnmount() {
+    this.mountedState = false;
   }
 
   render() {
