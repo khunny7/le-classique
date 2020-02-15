@@ -3,12 +3,11 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  useLocation,
 } from 'react-router-dom';
 import { Redirect } from 'react-router';
 import firebase from 'firebase/app';
 import SignInPage from './sign-in-page/signInPage';
-import { DashboardPage } from './dashboard/dashboard-page';
+import DashboardPage from './dashboard/dashboard-page';
 import BookReaderPage from './reader/book-reader-page';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -36,10 +35,11 @@ class App extends React.Component {
   }
 
   render() {
+    const { currentUser } = this.state;
     return (
       <Router>
         {
-          this.state.currentUser === null
+          currentUser === null
           && <Redirect push to="/login" />
         }
         <Switch>

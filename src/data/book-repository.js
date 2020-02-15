@@ -1,6 +1,6 @@
 import firebase from 'firebase/app';
 import 'firebase/firestore';
-import { Book, bookConverter } from '../model/book';
+import { bookConverter } from '../model/book';
 
 const bookCollection = () => firebase.firestore().collection('books');
 
@@ -20,9 +20,10 @@ class BookRepository {
     const docRef = bookCollection().doc(bookId);
 
     return docRef.withConverter(bookConverter).get(getOptions).then((doc) => doc.data()).catch((error) => {
+      // eslint-disable-next-line
       console.error(error);
     });
   }
 }
 
-export { BookRepository };
+export default BookRepository;
