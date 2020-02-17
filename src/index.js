@@ -8,4 +8,6 @@ import('./app-loader').then(({ default: appLoader }) => {
   appLoader.load();
 
   loadingPageView.remove();
-}).catch(() => 'An error occured while loading the component');
+}).catch((e) => {
+  throw (e);
+});
