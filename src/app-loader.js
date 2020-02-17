@@ -1,4 +1,4 @@
-import './style.css';
+import './style.less';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import firebase from 'firebase/app';

@@ -1,0 +1,83 @@
+.book-reader-page {
+  width: 100%;
+  height: 100%;
+
+  #book-render-area {
+    width: 100%;
+    height: 100%;
+  }
+
+  .reader-title-bar {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    z-index: 100;
+    color: #4f4f4f;
+    font-weight: 100;
+    font-family: Georgia, "Times New Roman", Times, serif;
+    opacity: .5;
+    min-height: 2rem;
+    -webkit-box-shadow: inset 0 0 50px rgba(0, 0, 0, .1);
+    -ms-box-shadow: inset 0 0 50px rgba(0, 0, 0, .1);
+    box-shadow: inset 0 0 50px rgba(0, 0, 0, .1);
+
+    .meta-info {
+      text-align: center;
+    }
+  }
+
+  .reader-controller-container {
+    position: absolute;
+    width: 100%;
+    height: 70%;
+    top: 15%;
+    z-index: 100;
+
+    .navigation-button.btn-primary:not(:disabled):not(.disabled) {
+      position: absolute;
+      height: 100%;
+      background: transparent;
+      border: none;
+      font-size: 3rem;
+      padding: 0.5rem;
+      margin: 0;
+      font-family: arial, sans-serif;
+      font-weight: bold;
+      user-select: none;
+      cursor: pointer;
+      color: #E2E2E2;
+
+      &:hover {
+        color: #212529;
+      }
+
+      &:focus {
+        box-shadow: none;
+      }
+
+      &:active {
+        background-color: transparent;
+        background: transparent;
+      }
+
+      &:active:focus {
+        box-shadow: none;
+        background: transparent;
+        background-color: transparent;
+      }
+
+      &:active {
+        background-color: transparent;
+        border: none;
+      }
+    }
+
+    .prev-button {
+      left: 0;
+    }
+
+    .next-button {
+      right: 0;
+    }
+  }
+}

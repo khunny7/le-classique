@@ -14,17 +14,17 @@ module.exports = {
   devServer: {
     contentBase: './public',
     historyApiFallback: {
-      index: '/index.html'
+      index: '/index.html',
     },
-    index: 'index.html'
+    index: 'index.html',
   },
   module: {
     rules: [{
       test: /\.css$/,
       use: [
         'style-loader',
-        'css-loader'
-      ]
+        'css-loader',
+      ],
     },
     {
       test: /\.less$/,
@@ -43,14 +43,14 @@ module.exports = {
     {
       test: /\.(png|svg|jpg|gif)$/,
       use: [
-        'file-loader'
-      ]
+        'file-loader',
+      ],
     },
     {
       test: /\.(woff|woff2|eot|ttf|otf)$/,
       use: [
-        'file-loader'
-      ]
+        'file-loader',
+      ],
     },
     {
       test: /\.(js|jsx)$/,
