@@ -9,21 +9,19 @@ const BookListItemView = (props) => {
   const linkTo = `/book/${book.id}`;
 
   return (
-    <Card style={{ width: '18rem' }}>
-      <Card.Img variant="top" src={book.cover} />
-      <Card.Body>
-        <Card.Title>
-          {book.title}
-        </Card.Title>
-        <Card.Text>
-          {book.author}
-        </Card.Text>
-        <Card.Text>
-          {book.description}
-        </Card.Text>
-        <Link to={linkTo}>READ</Link>
-      </Card.Body>
-    </Card>
+    <Link to={linkTo}>
+      <Card style={{ width: '18rem' }}>
+        <Card.Img variant="top" src={book.cover} />
+        <Card.Body>
+          <Card.Title>
+            {book.title}
+          </Card.Title>
+          <Card.Text>
+            {book.author}
+          </Card.Text>
+        </Card.Body>
+      </Card>
+    </Link>
   );
 };
 

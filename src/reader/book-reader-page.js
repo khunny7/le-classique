@@ -6,6 +6,7 @@ import './book-reader-style.less';
 import BookRepository from '../data/book-repository';
 import ReaderController from './reader-controller';
 import ReaderTitleBar from './reader-title-bar';
+import ReaderReaderHeader from './book-reader-header';
 
 class BookReaderPageComponent extends React.Component {
   constructor(props) {
@@ -31,7 +32,7 @@ class BookReaderPageComponent extends React.Component {
         this.rendition = this.epubBook.renderTo('book-render-area', {
           width: '100%',
           height: '100%',
-          method: 'continuous',
+          ignoreClass: 'annotator-hl',
         });
 
         this.rendition.display();
@@ -56,7 +57,6 @@ class BookReaderPageComponent extends React.Component {
               />
             )
           }
-
           {
             book !== null
             && (
@@ -65,6 +65,9 @@ class BookReaderPageComponent extends React.Component {
               />
             )
           }
+          <ReaderReaderHeader
+            book={this.epubBook}
+          />
         </div>
         <div id="book-render-area" />
       </div>

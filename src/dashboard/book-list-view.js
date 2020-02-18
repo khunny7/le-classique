@@ -1,18 +1,26 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { CardColumns } from 'react-bootstrap';
 import { Book } from '../model/book';
 import BookListItemView from './book-list-item-view';
 
 const BookListView = (props/* , context */) => {
   const { books } = props;
 
-
-  const renderBookList = () => books.map((bookDataItem) => (
-    <BookListItemView
-      key={bookDataItem.id}
-      book={bookDataItem}
-    />
-  ));
+  const renderBookList = () => {
+    return (
+      <CardColumns>
+        {
+          books.map((bookDataItem) => (
+            <BookListItemView
+              key={bookDataItem.id}
+              book={bookDataItem}
+            />
+          ))
+        }
+      </CardColumns>
+    );
+  };
 
   return (
     <div className="book-list-view">
