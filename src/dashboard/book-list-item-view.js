@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Card } from 'react-bootstrap';
+import { Col, Image } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { Book } from '../model/book';
 
@@ -9,19 +9,20 @@ const BookListItemView = (props) => {
   const linkTo = `/book/${book.id}`;
 
   return (
-    <Link to={linkTo}>
-      <Card style={{ width: '18rem' }}>
-        <Card.Img variant="top" src={book.cover} />
-        <Card.Body>
-          <Card.Title>
-            {book.title}
-          </Card.Title>
-          <Card.Text>
-            {book.author}
-          </Card.Text>
-        </Card.Body>
-      </Card>
-    </Link>
+    <Col
+      className="book-list-item-container"
+      xs={4}
+      md={3}
+      lg={2}
+    >
+      <Link to={linkTo}>
+        <div className="book-list-item-content">
+          <Image src={book.cover} fluid />
+          <p className="book-title">{book.title}</p>
+          <p className="book-author">{book.author}</p>
+        </div>
+      </Link>
+    </Col>
   );
 };
 

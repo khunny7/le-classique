@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { CardColumns } from 'react-bootstrap';
+import { Row } from 'react-bootstrap';
 import { Book } from '../model/book';
 import BookListItemView from './book-list-item-view';
 
@@ -9,7 +9,7 @@ const BookListView = (props/* , context */) => {
 
   const renderBookList = () => {
     return (
-      <CardColumns>
+      <Row className="book-list-container">
         {
           books.map((bookDataItem) => (
             <BookListItemView
@@ -18,7 +18,7 @@ const BookListView = (props/* , context */) => {
             />
           ))
         }
-      </CardColumns>
+      </Row>
     );
   };
 
