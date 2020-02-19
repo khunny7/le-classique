@@ -7,6 +7,7 @@ import BookRepository from '../data/book-repository';
 import ReaderController from './reader-controller';
 import ReaderTitleBar from './reader-title-bar';
 import ReaderReaderHeader from './book-reader-header';
+import TranslationController from './translation-controller';
 
 class BookReaderPageComponent extends React.Component {
   constructor(props) {
@@ -34,7 +35,6 @@ class BookReaderPageComponent extends React.Component {
           height: '100%',
           ignoreClass: 'annotator-hl',
         });
-
         this.rendition.display();
 
         this.setState({
@@ -61,6 +61,14 @@ class BookReaderPageComponent extends React.Component {
             book !== null
             && (
               <ReaderController
+                rendition={this.rendition}
+              />
+            )
+          }
+          {
+            book !== null
+            && (
+              <TranslationController
                 rendition={this.rendition}
               />
             )

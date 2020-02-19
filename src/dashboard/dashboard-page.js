@@ -1,7 +1,8 @@
 import React from 'react';
-import { Jumbotron, Button } from 'react-bootstrap';
+import { Jumbotron, Button, Container } from 'react-bootstrap';
 import BookListView from './book-list-view';
 import BookRepository from '../data/book-repository';
+import './dashboard-style.less';
 
 class DashboardPage extends React.Component {
   constructor(props) {
@@ -43,7 +44,9 @@ class DashboardPage extends React.Component {
           </p>
           <Button variant="primary">Learn more</Button>
         </Jumbotron>
-        <BookListView books={books} />
+        <Container>
+          <BookListView books={books} />
+        </Container>
       </div>
     );
   }
