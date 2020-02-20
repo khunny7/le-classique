@@ -44,6 +44,12 @@ class BookReaderPageComponent extends React.Component {
     });
   }
 
+  componentWillUnmount() {
+    if (this.epubBook) {
+      this.epubBook.destroy();
+    }
+  }
+
   render() {
     const { book } = this.state;
     return (

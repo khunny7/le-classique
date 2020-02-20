@@ -8,9 +8,35 @@
 
   &.top-place {
     top: 0;
+    border-bottom: solid 2px #666666;
+    
+    .translation-controller-content {
+      button {
+        bottom: 0;
+      }
+    }
   }
 
   &.bottom-place {
     bottom: 0;
+    border-top: solid 2px #666666;
+
+    .translation-controller-content {
+      button {
+        top: 0;
+      }
+    }
+  }
+
+  .translation-controller-content {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    padding: 1rem;
+    
+    button {
+      position: absolute;
+      right: 0;
+    }
   }
 }
