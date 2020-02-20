@@ -2,7 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Button } from 'react-bootstrap';
 import translateText from '../data/bing-translate';
+import BookRepository from '../data/book-repository';
 import './translation-controller-style.less';
+import md5 from '../utils/md5';
 
 class TranslationController extends React.Component {
   constructor(props) {
@@ -12,11 +14,14 @@ class TranslationController extends React.Component {
     this.state = {
       currentElement: null,
       translatedText: '',
+      autoTranslatedText: '',
     };
 
     rendition.on('click', (e) => {
       e.stopPropagation();
       e.stopImmediatePropagation();
+
+      const { bookId } = this.props;
 
       const element = e.srcElement;
 
@@ -27,13 +32,26 @@ class TranslationController extends React.Component {
 
         this.setState({
           currentElement: element,
-          translatedText: '',
+        });
+
+        const textId = md5(element.innerText);
+
+        BookRepository.getBookTranslation(bookId, textId).then((data) => {
+          if (data.exists) {
+            this.setState({
+              translatedText: data.text,
+            });
+          } else {
+            this.setState({
+              translatedText: 'no translation found',
+            });
+          }
         });
 
         translateText(element.innerText)
           .then((translated) => {
             this.setState({
-              translatedText: translated,
+              autoTranslatedText: translated,
             });
           });
       }
@@ -50,11 +68,12 @@ class TranslationController extends React.Component {
     this.setState({
       currentElement: null,
       translatedText: '',
+      autoTranslatedText: '',
     });
   }
 
   render() {
-    const { currentElement, translatedText } = this.state;
+    const { currentElement, translatedText, autoTranslatedText } = this.state;
 
     if (currentElement == null) {
       return (<div />);
@@ -77,6 +96,9 @@ class TranslationController extends React.Component {
           <p>
             {translatedText}
           </p>
+          <p>
+            {autoTranslatedText}
+          </p>
           <Button onClick={() => this.reset()}>&#10006;</Button>
         </div>
       </div>
@@ -88,6 +110,7 @@ TranslationController.propTypes = {
   rendition: PropTypes.shape({
     on: PropTypes.func.isRequired,
   }).isRequired,
+  bookId: PropTypes.string.isRequired,
 };
 
 export default TranslationController;

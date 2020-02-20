@@ -15,6 +15,7 @@ class BookReaderPageComponent extends React.Component {
 
     this.state = {
       book: null,
+      bookId: null,
     };
   }
 
@@ -39,6 +40,7 @@ class BookReaderPageComponent extends React.Component {
 
         this.setState({
           book,
+          bookId,
         });
       });
     });
@@ -51,7 +53,7 @@ class BookReaderPageComponent extends React.Component {
   }
 
   render() {
-    const { book } = this.state;
+    const { book, bookId } = this.state;
     return (
       <div className="book-reader-page">
         <div className="main-view-area">
@@ -76,6 +78,7 @@ class BookReaderPageComponent extends React.Component {
             && (
               <TranslationController
                 rendition={this.rendition}
+                bookId={bookId}
               />
             )
           }

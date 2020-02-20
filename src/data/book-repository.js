@@ -33,16 +33,33 @@ class BookRepository {
     return new Promise((resolve) => {
       httpsReference.getDownloadURL().then((url) => {
         resolve(url);
-      // This can be downloaded directly:
-      // var xhr = new XMLHttpRequest();
-      // xhr.responseType = 'blob';
-      // xhr.onload = function(event) {
-      //   var blob = xhr.response;
-      // };
-      // xhr.open('GET', url);
-      // xhr.send();
-      // });
       });
+    });
+  }
+
+  static getBookTranslation(bookId, translationId, fromCache = false) {
+    const getOptions = {
+      source: fromCache ? 'cache' : 'default',
+    };
+
+    const docRef = bookCollection().doc(bookId);
+    const translationRef = docRef.collection('translations').doc(translationId);
+
+    return new Promise((resolve) => {
+      translationRef.get(getOptions)
+        .then(((doc) => {
+          if (doc.exists) {
+            resolve({
+              text: doc.data().text,
+              exists: doc.exists,
+            });
+          } else {
+            resolve({
+              text: '',
+              exists: doc.exists,
+            });
+          }
+        }));
     });
   }
 }
