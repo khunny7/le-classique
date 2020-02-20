@@ -1,5 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
+import { Button } from 'react-bootstrap';
+import translateText from '../data/bing-translate';
 import './translation-controller-style.less';
 
 class TranslationController extends React.Component {
@@ -9,6 +11,7 @@ class TranslationController extends React.Component {
 
     this.state = {
       currentElement: null,
+      translatedText: '',
     };
 
     rendition.on('click', (e) => {
@@ -17,28 +20,41 @@ class TranslationController extends React.Component {
 
       const element = e.srcElement;
 
-      const { currentElement } = this.state;
+      this.reset();
 
-      if (currentElement !== null) {
-        currentElement.style.backgroundColor = 'unset';
-      }
-
-      if (e.target.tagName.toUpperCase() !== 'P') {
-        this.setState({
-          currentElement: null,
-        });
-      } else {
+      if (e.target.tagName.toUpperCase() === 'P') {
         element.style.backgroundColor = 'tomato';
 
         this.setState({
           currentElement: element,
+          translatedText: '',
         });
+
+        translateText(element.innerText)
+          .then((translated) => {
+            this.setState({
+              translatedText: translated,
+            });
+          });
       }
     });
   }
 
-  render() {
+  reset() {
     const { currentElement } = this.state;
+
+    if (currentElement !== null) {
+      currentElement.style.backgroundColor = 'unset';
+    }
+
+    this.setState({
+      currentElement: null,
+      translatedText: '',
+    });
+  }
+
+  render() {
+    const { currentElement, translatedText } = this.state;
 
     if (currentElement == null) {
       return (<div />);
@@ -54,7 +70,15 @@ class TranslationController extends React.Component {
 
     return (
       <div className={classNames.join(' ')}>
-        {currentElement.innerText}
+        <div className="translation-controller-content">
+          <p>
+            {currentElement.innerText}
+          </p>
+          <p>
+            {translatedText}
+          </p>
+          <Button onClick={() => this.reset()}>&#10006;</Button>
+        </div>
       </div>
     );
   }
@@ -62,8 +86,7 @@ class TranslationController extends React.Component {
 
 TranslationController.propTypes = {
   rendition: PropTypes.shape({
-    next: PropTypes.func.isRequired,
-    prev: PropTypes.func.isRequired,
+    on: PropTypes.func.isRequired,
   }).isRequired,
 };
 

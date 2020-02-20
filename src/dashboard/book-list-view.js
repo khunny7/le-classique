@@ -7,10 +7,9 @@ import BookListItemView from './book-list-item-view';
 const BookListView = (props/* , context */) => {
   const { books } = props;
 
-  const renderBookList = () => {
-    return (
-      <Row className="book-list-container">
-        {
+  const renderBookList = () => (
+    <Row className="book-list-container">
+      {
           books.map((bookDataItem) => (
             <BookListItemView
               key={bookDataItem.id}
@@ -18,9 +17,8 @@ const BookListView = (props/* , context */) => {
             />
           ))
         }
-      </Row>
-    );
-  };
+    </Row>
+  );
 
   return (
     <div className="book-list-view">

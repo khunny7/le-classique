@@ -26,7 +26,7 @@ const BookReaderSettingsModal = (props) => {
 
   const setBookBackGroundColor = (color) => {
     setBackgroundColor(color);
-  }
+  };
 
   const onClose = () => {
     book.rendition.themes.fontSize(`${fontSize}%`);
@@ -71,7 +71,7 @@ const BookReaderSettingsModal = (props) => {
       <Modal.Footer>
         <Button onClick={onClose}>Close</Button>
       </Modal.Footer>
-    </Modal >
+    </Modal>
   );
 };
 
@@ -79,6 +79,12 @@ BookReaderSettingsModal.propTypes = {
   onHide: PropTypes.func.isRequired,
   book: PropTypes.shape({
     setStyle: PropTypes.func,
+    rendition: PropTypes.shape({
+      themes: PropTypes.shape({
+        fontSize: PropTypes.func,
+        override: PropTypes.func,
+      }),
+    }),
   }),
 };
 
