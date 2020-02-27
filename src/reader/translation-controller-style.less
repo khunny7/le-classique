@@ -5,13 +5,24 @@
   z-index: 100;
   background: white;
   opacity: 0.9;
+  overflow-y: scroll;
+  overflow-x: visible;
+  -webkit-transition: height 1s ease-in-out;
+  -moz-transition: height 1s ease-in-out;
+  -ms-transition: height 1s ease-in-out;
+  -o-transition: height 1s ease-in-out;
+  transition: height 1s ease-in-out;
+
+  &.edit-mode {
+    height: 70%;
+  }
 
   &.top-place {
     top: 0;
     border-bottom: solid 2px #666666;
     
     .translation-controller-content {
-      button {
+      .translation-button-group {
         bottom: 0;
       }
     }
@@ -22,7 +33,7 @@
     border-top: solid 2px #666666;
 
     .translation-controller-content {
-      button {
+      .translation-button-group {
         top: 0;
       }
     }
@@ -33,8 +44,13 @@
     width: 100%;
     height: 100%;
     padding: 1rem;
+
+    .translation-text-edit-area {
+      width: 100%;
+      height: 8rem;
+    }
     
-    button {
+    .translation-button-group {
       position: absolute;
       right: 0;
     }

@@ -1,21 +1,25 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Button } from 'react-bootstrap';
-import translateText from '../data/bing-translate';
+import { Button, ButtonGroup } from 'react-bootstrap';
+import _ from 'lodash/lang';
 import BookRepository from '../data/book-repository';
 import './translation-controller-style.less';
 import md5 from '../utils/md5';
+import TranslationEdit from './translation-edit';
+import AutoTranslation from './auto-translation';
+
+const defaultState = {
+  currentElement: null,
+  translatedText: '',
+  editMode: false,
+};
 
 class TranslationController extends React.Component {
   constructor(props) {
     super(props);
     const { rendition } = props;
 
-    this.state = {
-      currentElement: null,
-      translatedText: '',
-      autoTranslatedText: '',
-    };
+    this.state = _.cloneDeep(defaultState);
 
     rendition.on('click', (e) => {
       e.stopPropagation();
@@ -47,15 +51,26 @@ class TranslationController extends React.Component {
             });
           }
         });
-
-        translateText(element.innerText)
-          .then((translated) => {
-            this.setState({
-              autoTranslatedText: translated,
-            });
-          });
       }
     });
+
+    rendition.on('locationChanged', (/* locationChangedEvent */) => {
+      this.reset();
+    });
+
+    this.onEditDone = this.onEditDone.bind(this);
+  }
+
+  onEditDone(isSaved, text) {
+    this.setState({
+      editMode: false,
+    });
+
+    if (isSaved) {
+      this.setState({
+        translatedText: text,
+      });
+    }
   }
 
   reset() {
@@ -65,15 +80,25 @@ class TranslationController extends React.Component {
       currentElement.style.backgroundColor = 'unset';
     }
 
+    this.setState(defaultState);
+  }
+
+  edit() {
     this.setState({
-      currentElement: null,
-      translatedText: '',
-      autoTranslatedText: '',
+      editMode: true,
     });
   }
 
   render() {
-    const { currentElement, translatedText, autoTranslatedText } = this.state;
+    const {
+      currentElement,
+      translatedText,
+      editMode,
+    } = this.state;
+
+    const {
+      bookId,
+    } = this.props;
 
     if (currentElement == null) {
       return (<div />);
@@ -87,20 +112,48 @@ class TranslationController extends React.Component {
       classNames.push('bottom-place');
     }
 
-    return (
-      <div className={classNames.join(' ')}>
-        <div className="translation-controller-content">
-          <p>
-            {currentElement.innerText}
-          </p>
+    if (editMode) {
+      classNames.push('edit-mode');
+    }
+
+    const readModeContent = () => (
+      <div className="translation-controller-content">
+        <p>
+          {currentElement.innerText}
+        </p>
+        <div>
           <p>
             {translatedText}
           </p>
-          <p>
-            {autoTranslatedText}
-          </p>
-          <Button onClick={() => this.reset()}>&#10006;</Button>
+          {
+            translatedText === 'no translation found'
+            && <AutoTranslation originalText={currentElement.innerText} />
+          }
         </div>
+        <ButtonGroup className="translation-button-group">
+          <Button onClick={() => this.edit()}>&#9998;</Button>
+          <Button onClick={() => this.reset()}>&#10006;</Button>
+        </ButtonGroup>
+      </div>
+    );
+
+    return (
+      <div className={classNames.join(' ')}>
+        {
+          !editMode
+          && readModeContent()
+        }
+        {
+          editMode
+          && (
+            <TranslationEdit
+              originalText={currentElement.innerText}
+              originalTranslation={translatedText}
+              onEditDone={this.onEditDone}
+              bookId={bookId}
+            />
+          )
+        }
       </div>
     );
   }

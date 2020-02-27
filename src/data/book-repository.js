@@ -37,6 +37,23 @@ class BookRepository {
     });
   }
 
+  static setBookTranslation(bookId, translationId, text) {
+    const docRef = bookCollection().doc(bookId);
+    const translationRef = docRef.collection('translations').doc(translationId);
+
+    return new Promise((resolve, reject) => {
+      translationRef.set({
+        text,
+      })
+        .then(() => {
+          resolve();
+        })
+        .catch((error) => {
+          reject(error);
+        });
+    });
+  }
+
   static getBookTranslation(bookId, translationId, fromCache = false) {
     const getOptions = {
       source: fromCache ? 'cache' : 'default',
