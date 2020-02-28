@@ -14,36 +14,13 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 class App extends React.Component {
   constructor(props) {
     super(props);
-
-    const auth = firebase.auth();
-
-    auth.onAuthStateChanged((user) => {
-      if (user) {
-        this.setState({
-          currentUser: user,
-        });
-      } else {
-        this.setState({
-          currentUser: null,
-        });
-      }
-    });
-
-    this.state = {
-      currentUser: auth.currentUser,
-    };
   }
 
   render() {
-    const { currentUser } = this.state;
     return (
       <Router>
-        {
-          currentUser === null
-          && <Redirect push to="/login" />
-        }
         <Switch>
-          <Route path="/dashboard">
+          <Route exact path="/">
             <DashboardPage />
           </Route>
           <Route path="/users">

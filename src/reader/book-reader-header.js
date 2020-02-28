@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Button } from 'react-bootstrap';
+import PageHeader from '../components/page-header';
 import BookReaderSettingsModal from './book-reader-settings-modal';
 
 const ReaderReaderHeader = (props) => {
@@ -9,14 +10,10 @@ const ReaderReaderHeader = (props) => {
 
   return (
     <div className="reader-header-container">
-      <span>Le-Classique</span>
-      <Button variant="outline-secondary">&#9750;</Button>
-      <Button
-        variant="outline-secondary"
-        onClick={() => setIsModalOpen(true)}
-      >
-        &#9998;
-      </Button>
+      <PageHeader
+        mode="book-reader"
+        onReaderSetting={() => setIsModalOpen(true)}
+      />
       <BookReaderSettingsModal
         book={book}
         show={isModalOpen}

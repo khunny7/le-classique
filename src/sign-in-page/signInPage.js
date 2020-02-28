@@ -10,7 +10,7 @@ class SignInPage extends React.Component {
       return;
     }
 
-    const ui = new firebaseui.auth.AuthUI(firebase.auth());
+    this.ui = new firebaseui.auth.AuthUI(firebase.auth());
 
     const uiConfig = {
       signInOptions: [
@@ -22,17 +22,19 @@ class SignInPage extends React.Component {
         signInSuccessWithAuthResult: (/* authResult, redirectUrl */) => true,
       },
       signInFlow: 'popup',
-      signInSuccessUrl: '/dashboard',
+      signInSuccessUrl: '/',
     };
 
-    ui.start('#firebaseui-auth-container', uiConfig);
+    this.ui.start('#firebaseui-auth-container', uiConfig);
+  }
+
+  componentWillUnmount() {
+    if (this.ui) {
+      this.ui.delete();
+    }
   }
 
   render() {
-    if (firebase.auth().currentUser !== null) {
-      return (<Redirect push to="/dashboard" />);
-    }
-
     return (
       <div id="firebaseui-auth-container" />
     );

@@ -1,7 +1,9 @@
 import React from 'react';
 import { Jumbotron, Button, Container } from 'react-bootstrap';
+import { withRouter } from 'react-router-dom';
 import BookListView from './book-list-view';
 import BookRepository from '../data/book-repository';
+import PageHeader from '../components/page-header';
 import './dashboard-style.less';
 
 class DashboardPage extends React.Component {
@@ -37,6 +39,7 @@ class DashboardPage extends React.Component {
     const { books } = this.state;
     return (
       <div className="dashboard-container">
+        <PageHeader />
         <Jumbotron>
           <h1>Hello, users!</h1>
           <p>
