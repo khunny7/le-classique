@@ -6,7 +6,7 @@ import './book-reader-style.less';
 import BookRepository from '../data/book-repository';
 import ReaderController from './reader-controller';
 import ReaderTitleBar from './reader-title-bar';
-import ReaderReaderHeader from './book-reader-header';
+import BookReaderHeader from './book-reader-header';
 import TranslationController from './translation-controller';
 
 class BookReaderPageComponent extends React.Component {
@@ -53,7 +53,7 @@ class BookReaderPageComponent extends React.Component {
   }
 
   render() {
-    const { book, bookId } = this.state;
+    const { book, bookId, isModalOpen } = this.state;
     return (
       <div className="book-reader-page">
         <div className="main-view-area">
@@ -82,7 +82,7 @@ class BookReaderPageComponent extends React.Component {
               />
             )
           }
-          <ReaderReaderHeader
+          <BookReaderHeader
             book={this.epubBook}
           />
         </div>
