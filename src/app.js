@@ -4,38 +4,41 @@ import {
   Switch,
   Route,
 } from 'react-router-dom';
-import { Redirect } from 'react-router';
-import firebase from 'firebase/app';
 import SignInPage from './sign-in-page/signInPage';
 import DashboardPage from './dashboard/dashboard-page';
 import BookReaderPage from './reader/book-reader-page';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { UserContextProvider } from './user-context';
 
 class App extends React.Component {
-  constructor(props) {
-    super(props);
+  constructor(props, context) {
+    super(props, context);
+
+    this.state = {};
   }
 
   render() {
     return (
-      <Router>
-        <Switch>
-          <Route exact path="/">
-            <DashboardPage />
-          </Route>
-          <Route path="/users">
-            <div>
-              Users
-            </div>
-          </Route>
-          <Route path="/login">
-            <SignInPage />
-          </Route>
-          <Route path="/book">
-            <BookReaderPage />
-          </Route>
-        </Switch>
-      </Router>
+      <UserContextProvider>
+        <Router>
+          <Switch>
+            <Route exact path="/">
+              <DashboardPage />
+            </Route>
+            <Route path="/users">
+              <div>
+                Users
+              </div>
+            </Route>
+            <Route path="/login">
+              <SignInPage />
+            </Route>
+            <Route path="/book">
+              <BookReaderPage />
+            </Route>
+          </Switch>
+        </Router>
+      </UserContextProvider>
     );
   }
 }

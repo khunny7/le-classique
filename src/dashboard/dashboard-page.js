@@ -1,6 +1,5 @@
 import React from 'react';
 import { Jumbotron, Button, Container } from 'react-bootstrap';
-import { withRouter } from 'react-router-dom';
 import BookListView from './book-list-view';
 import BookRepository from '../data/book-repository';
 import PageHeader from '../components/page-header';

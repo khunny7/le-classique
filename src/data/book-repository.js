@@ -37,13 +37,16 @@ class BookRepository {
     });
   }
 
-  static setBookTranslation(bookId, translationId, text) {
-    const docRef = bookCollection().doc(bookId);
-    const translationRef = docRef.collection('translations').doc(translationId);
+  static updateBookTranslation(bookId, sentenceId, translationId, text) {
+    const userId = firebase.auth().currentUser.uid;
+    const bookRef = bookCollection().doc(bookId);
+    const translationRef = bookRef.collection('sentences').doc(sentenceId).collection('trans').doc(translationId);
 
     return new Promise((resolve, reject) => {
       translationRef.set({
         text,
+        author: userId,
+        language: 'ko',
       })
         .then(() => {
           resolve();
@@ -54,26 +57,47 @@ class BookRepository {
     });
   }
 
-  static getBookTranslation(bookId, translationId, fromCache = false) {
+  static setBookTranslation(bookId, sentenceId, text) {
+    const userId = firebase.auth().currentUser.uid;
+    const bookRef = bookCollection().doc(bookId);
+    const translationRef = bookRef.collection('sentences').doc(sentenceId).collection('trans');
+
+    return new Promise((resolve, reject) => {
+      translationRef.add({
+        text,
+        author: userId,
+        language: 'ko',
+      })
+        .then(() => {
+          resolve();
+        })
+        .catch((error) => {
+          reject(error);
+        });
+    });
+  }
+
+  static getBookTranslation(bookId, sentenceId, fromCache = false) {
     const getOptions = {
       source: fromCache ? 'cache' : 'default',
     };
 
-    const docRef = bookCollection().doc(bookId);
-    const translationRef = docRef.collection('translations').doc(translationId);
+    const bookRef = bookCollection().doc(bookId);
+    const translationRef = bookRef.collection('sentences').doc(sentenceId).collection('trans');
 
     return new Promise((resolve) => {
       translationRef.get(getOptions)
-        .then(((doc) => {
-          if (doc.exists) {
+        .then(((qsnap) => {
+          if (qsnap.size > 0) {
             resolve({
-              text: doc.data().text,
-              exists: doc.exists,
+              text: qsnap.docs[0].data().text,
+              id: qsnap.docs[0].id,
+              exists: true,
             });
           } else {
             resolve({
               text: '',
-              exists: doc.exists,
+              exists: false,
             });
           }
         }));

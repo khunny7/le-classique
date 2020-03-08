@@ -17,8 +17,10 @@ const appLoader = {
       measurementId: 'G-F44DSEG4QQ',
     });
 
-    ReactDOM.render(<App title="React Webpack boiler plate with Jake" />,
-      document.getElementById('app-react-root'));
+    ReactDOM.render(
+      <App title="React Webpack boiler plate with Jake" />,
+      document.getElementById('app-react-root'),
+    );
   },
 };
 

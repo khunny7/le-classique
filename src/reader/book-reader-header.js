@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { Button } from 'react-bootstrap';
 import PageHeader from '../components/page-header';
 import BookReaderSettingsModal from './book-reader-settings-modal';
 

@@ -4,7 +4,7 @@ import { Button, ButtonGroup } from 'react-bootstrap';
 import _ from 'lodash/lang';
 import BookRepository from '../data/book-repository';
 import './translation-controller-style.less';
-import md5 from '../utils/md5';
+import stringToKey from '../utils/stringToKey';
 import TranslationEdit from './translation-edit';
 import AutoTranslation from './auto-translation';
 
@@ -12,6 +12,7 @@ const defaultState = {
   currentElement: null,
   translatedText: '',
   editMode: false,
+  translationId: '',
 };
 
 class TranslationController extends React.Component {
@@ -38,16 +39,18 @@ class TranslationController extends React.Component {
           currentElement: element,
         });
 
-        const textId = md5(element.innerText);
+        const textId = stringToKey(element.innerText);
 
         BookRepository.getBookTranslation(bookId, textId).then((data) => {
           if (data.exists) {
             this.setState({
               translatedText: data.text,
+              translationId: data.id,
             });
           } else {
             this.setState({
               translatedText: 'no translation found',
+              translationId: '',
             });
           }
         });
@@ -93,6 +96,7 @@ class TranslationController extends React.Component {
     const {
       currentElement,
       translatedText,
+      translationId,
       editMode,
     } = this.state;
 
@@ -149,6 +153,7 @@ class TranslationController extends React.Component {
             <TranslationEdit
               originalText={currentElement.innerText}
               originalTranslation={translatedText}
+              translationId={translationId}
               onEditDone={this.onEditDone}
               bookId={bookId}
             />
