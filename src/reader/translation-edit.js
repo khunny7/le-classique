@@ -37,7 +37,6 @@ const TranslationEdit = (props) => {
           onEditDone(true, translationEditText);
         });
     }
-
   };
 
   const cancelEdit = () => {

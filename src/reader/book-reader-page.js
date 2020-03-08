@@ -53,7 +53,7 @@ class BookReaderPageComponent extends React.Component {
   }
 
   render() {
-    const { book, bookId, isModalOpen } = this.state;
+    const { book, bookId } = this.state;
     return (
       <div className="book-reader-page">
         <div className="main-view-area">

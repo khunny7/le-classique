@@ -3,7 +3,6 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import firebase from 'firebase/app';
 import App from './app';
-import AuthRepository from './data/auth-repository';
 
 const appLoader = {
   load: () => {
@@ -18,11 +17,10 @@ const appLoader = {
       measurementId: 'G-F44DSEG4QQ',
     });
 
-    // intialize
-    AuthRepository.get();
-
-    ReactDOM.render(<App title="React Webpack boiler plate with Jake" />,
-      document.getElementById('app-react-root'));
+    ReactDOM.render(
+      <App title="React Webpack boiler plate with Jake" />,
+      document.getElementById('app-react-root'),
+    );
   },
 };
 

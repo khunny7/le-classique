@@ -10,12 +10,12 @@ class User {
 
 const userConverter = {
   toFirestore: (user) => ({
-    id: book.id,
-    author: book.author,
-    description: book.description,
-    title: book.title,
-    cover: book.cover,
-    bookData: book.bookData,
+    id: user.id,
+    author: user.author,
+    description: user.description,
+    title: user.title,
+    cover: user.cover,
+    bookData: user.bookData,
   }),
   fromFirestore: (snapshot, options) => {
     const data = snapshot.data(options);
