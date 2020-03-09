@@ -1,26 +1,32 @@
 class User {
-  constructor(uid, displayName, photoURL, email, description) {
+  constructor(uid, data) {
     this.uid = uid;
-    this.displayName = displayName;
-    this.photoURL = photoURL;
-    this.email = email;
-    this.description = description;
+    this.data = data;
+  }
+
+  setFBuser(fbUser) {
+    this.fbUser = fbUser;
+  }
+
+  getData() {
+    return {
+      uid: this.uid,
+      displayName: this.fbUser.displayName,
+      photoURL: this.fbUser.photoURL,
+      email: this.fbUser.email,
+      description: this.fbUser.description,
+    };
   }
 }
 
 const userConverter = {
   toFirestore: (user) => ({
-    id: user.id,
-    author: user.author,
-    description: user.description,
-    title: user.title,
-    cover: user.cover,
-    bookData: user.bookData,
+    id: user.uid,
   }),
   fromFirestore: (snapshot, options) => {
     const data = snapshot.data(options);
 
-    return new User(snapshot.id, data.displayName, data.photoURL, data.email, data.description);
+    return new User(snapshot.id, data);
   },
 };
 
