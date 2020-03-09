@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Button, ButtonGroup } from 'react-bootstrap';
 import _ from 'lodash/lang';
-import BookRepository from '../data/book-repository';
+import SentenceRepository from '../data/sentence-repository';
 import './translation-controller-style.less';
 import stringToKey from '../utils/stringToKey';
 import TranslationEdit from './translation-edit';
@@ -26,8 +26,6 @@ class TranslationController extends React.Component {
       e.stopPropagation();
       e.stopImmediatePropagation();
 
-      const { bookId } = this.props;
-
       const element = e.srcElement;
 
       this.reset();
@@ -41,7 +39,7 @@ class TranslationController extends React.Component {
 
         const textId = stringToKey(element.innerText);
 
-        BookRepository.getBookTranslation(bookId, textId).then((data) => {
+        SentenceRepository.getSentenceTranslation(textId).then((data) => {
           if (data.exists) {
             this.setState({
               translatedText: data.text,

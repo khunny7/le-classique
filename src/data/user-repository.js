@@ -1,51 +1,59 @@
 import firebase from 'firebase/app';
 import 'firebase/firestore';
-import { userConverter } from '../model/user';
+import { userConverter, User } from '../model/user';
 
-let instance = null;
+const getUserCollection = () => firebase.firestore().collection('users');
 
-class UserRepository {
-  /**
-   * @returns { books } - array of object type Book
-   */
-  static get() {
-    if (instance) {
-      instance = new UserRepository();
-    }
+const setUser = (userId, userObject) => {
+  const userRef = getUserCollection().doc(userId);
 
-    this.userCollection = firebase.firestore().collection('users');
+  return new Promise((resolve, reject) => {
+    userRef
+      .withConverter(userConverter)
+      .set(userObject)
+      .then(() => {
+        resolve();
+      })
+      .catch((error) => {
+        reject(error);
+      });
+  });
+};
 
-    return instance;
-  }
+const getUser = (userId, fbUser, fromCache = false) => {
+  const getOptions = {
+    source: fromCache ? 'cache' : 'default',
+  };
 
-  getUserById(userId, fromCache = false) {
-    const getOptions = {
-      source: fromCache ? 'cache' : 'default',
-    };
+  const userRef = getUserCollection().doc(userId);
 
-    const userRef = this.userCollection.doc(userId);
+  return userRef
+    .withConverter(userConverter)
+    .get(getOptions)
+    .then(
+      (doc) => {
+        if (doc.exists) {
+          const userObj = doc.data();
 
-    return userRef.withConverter(userConverter).get(getOptions).then((doc) => doc.data()).catch((error) => {
+          userObj.setFBuser(fbUser);
+
+          return userObj;
+        }
+        const userObj = new User(userId);
+
+        userObj.setFBuser(fbUser);
+
+        return setUser(userObj.uid, userObj).then(() => userObj);
+      },
+    ).catch((error) => {
       // eslint-disable-next-line
       console.error(error);
     });
-  }
+};
 
-  static setUser(userId, userObject) {
-    const userRef = this.userCollection.doc(userId);
-
-    return new Promise((resolve, reject) => {
-      userRef
-        .withConverter(userConverter)
-        .set(userObject)
-        .then(() => {
-          resolve();
-        })
-        .catch((error) => {
-          reject(error);
-        });
-    });
-  }
-}
+const UserRepository = {
+  getUser,
+  setUser,
+};
 
 export default UserRepository;

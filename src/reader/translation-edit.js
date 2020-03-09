@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Button, ButtonGroup } from 'react-bootstrap';
-import BookRepository from '../data/book-repository';
+import SentenceRepository from '../data/sentence-repository';
 import stringToKey from '../utils/stringToKey';
 
 const TranslationEdit = (props) => {
@@ -15,12 +15,11 @@ const TranslationEdit = (props) => {
   const [translationEditText, setTranslationEditText] = useState(originalTranslation);
 
   const saveEdit = () => {
-    const textId = stringToKey(originalText);
+    const sentenceId = stringToKey(originalText);
 
     if (translationId.length > 0) {
-      BookRepository.updateBookTranslation(
-        bookId,
-        textId,
+      SentenceRepository.updateTranslation(
+        sentenceId,
         translationId,
         translationEditText,
       )
@@ -28,10 +27,10 @@ const TranslationEdit = (props) => {
           onEditDone(true, translationEditText);
         });
     } else {
-      BookRepository.setBookTranslation(
-        bookId,
-        textId,
+      SentenceRepository.setSentenceTranslation(
+        sentenceId,
         translationEditText,
+        bookId,
       )
         .then(() => {
           onEditDone(true, translationEditText);
