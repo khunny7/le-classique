@@ -1,41 +1,60 @@
 import React from 'react';
-import { Jumbotron, Button, Container } from 'react-bootstrap';
+import { Jumbotron, Button, Container, Row, Col } from 'react-bootstrap';
 import BookListView from './book-list-view';
 import BookRepository from '../data/book-repository';
+import UserRepository from '../data/user-repository';
 import PageHeader from '../components/page-header';
+import { UserContext } from '../user-context';
 import './dashboard-style.less';
 
 class DashboardPage extends React.Component {
-  constructor(props) {
-    super(props);
+  constructor(props, context) {
+    super(props, context);
 
     this.state = {
       books: [],
+      userBooks: [],
     };
-
-    this.mountedState = false;
   }
 
   componentDidMount() {
-    this.mountedState = true;
-
-    BookRepository.get().then((books) => {
-      // TODO: instead, canceling the data fetch is ideal
-      if (!this.mountedState) {
-        return;
-      }
-      this.setState({
-        books,
-      });
-    });
+    this.fetchDataAndSetState();
   }
 
-  componentWillUnmount() {
-    this.mountedState = false;
+  componentDidUpdate() {
+    this.fetchDataAndSetState();
+  }
+
+  fetchDataAndSetState() {
+    const { currentUser } = this.context;
+
+    if (!this.fetchBooks) {
+      this.fetchBooks = BookRepository.get().then((books) => {
+        this.setState({
+          books,
+        });
+      });
+    }
+
+    if (!this.fetchUserBooks) {
+      if (currentUser) {
+        this.fetchUserBooks = UserRepository
+          .getUserBookDataAll(currentUser.uid)
+          .then((books) => {
+            const bookIds = books.map((book) => book.id);
+
+            BookRepository.getBooks(bookIds).then((userBooks) => {
+              this.setState({
+                userBooks,
+              });
+            });
+          });
+      }
+    }
   }
 
   render() {
-    const { books } = this.state;
+    const { books, userBooks } = this.state;
     return (
       <div className="dashboard-container">
         <PageHeader />
@@ -47,11 +66,26 @@ class DashboardPage extends React.Component {
           <Button variant="primary">Learn more</Button>
         </Jumbotron>
         <Container>
+          <Row>
+            <Col md={12}>
+              Books you have read
+            </Col>
+          </Row>
+          <BookListView books={userBooks} />
+        </Container>
+        <Container>
+          <Row>
+            <Col md={12}>
+              Browse the books
+            </Col>
+          </Row>
           <BookListView books={books} />
         </Container>
       </div>
     );
   }
 }
+
+DashboardPage.contextType = UserContext;
 
 export default DashboardPage;
