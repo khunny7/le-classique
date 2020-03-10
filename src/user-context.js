@@ -17,7 +17,7 @@ class UserContextProvider extends React.Component {
 
     this.auth.onAuthStateChanged((user) => {
       if (user) {
-        UserRepository.getUser(user.uid, user).then((lcUser) => {
+        UserRepository.getUserAndSet(user.uid, user).then((lcUser) => {
           this.setState({
             currentUser: lcUser.getData(),
           });
@@ -28,7 +28,7 @@ class UserContextProvider extends React.Component {
     });
 
     if (this.auth.currentUser) {
-      UserRepository.getUser(this.auth.currentUser.uid, this.auth.currentUser).then((lcUser) => {
+      UserRepository.getUserAndSet(this.auth.currentUser.uid, this.auth.currentUser).then((lcUser) => {
         this.setState({
           currentUser: lcUser.getData(),
         });

@@ -7,12 +7,14 @@ import './translation-controller-style.less';
 import stringToKey from '../utils/stringToKey';
 import TranslationEdit from './translation-edit';
 import AutoTranslation from './auto-translation';
+import UserInline from '../components/user-inline';
 
 const defaultState = {
   currentElement: null,
   translatedText: '',
   editMode: false,
   translationId: '',
+  translationAuthor: {},
 };
 
 class TranslationController extends React.Component {
@@ -44,11 +46,13 @@ class TranslationController extends React.Component {
             this.setState({
               translatedText: data.text,
               translationId: data.id,
+              translationAuthor: data.author,
             });
           } else {
             this.setState({
               translatedText: 'no translation found',
               translationId: '',
+              translationAuthor: {},
             });
           }
         });
@@ -95,6 +99,7 @@ class TranslationController extends React.Component {
       currentElement,
       translatedText,
       translationId,
+      translationAuthor,
       editMode,
     } = this.state;
 
@@ -127,6 +132,11 @@ class TranslationController extends React.Component {
           <p>
             {translatedText}
           </p>
+          <UserInline
+            photoURL={translationAuthor.photoURL}
+            displayName={translationAuthor.displayName}
+            uid={translationAuthor.uid}
+          />
           {
             translatedText === 'no translation found'
             && <AutoTranslation originalText={currentElement.innerText} />

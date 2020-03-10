@@ -20,7 +20,30 @@ const setUser = (userId, userObject) => {
   });
 };
 
-const getUser = (userId, fbUser, fromCache = false) => {
+const setUserBookData = (userId, bookId, bookData) => {
+  const userRef = getUserCollection().doc(userId);
+  const bookDataRef = userRef.collection('userBookData').doc(bookId);
+
+  return bookDataRef.set(bookData);
+};
+
+const getUserBookData = (userId, bookId) => {
+  const userRef = getUserCollection().doc(userId);
+  const bookDataRef = userRef.collection('userBookData').doc(bookId);
+
+  return bookDataRef.get()
+    .then(
+      (doc) => {
+        if (doc.exists) {
+          return doc.data();
+        } else {
+          return null;
+        }
+      }
+    );
+};
+
+const getUser = (userId, fromCache = false) => {
   const getOptions = {
     source: fromCache ? 'cache' : 'default',
   };
@@ -35,15 +58,10 @@ const getUser = (userId, fbUser, fromCache = false) => {
         if (doc.exists) {
           const userObj = doc.data();
 
-          userObj.setFBuser(fbUser);
-
           return userObj;
+        } else {
+          null;
         }
-        const userObj = new User(userId);
-
-        userObj.setFBuser(fbUser);
-
-        return setUser(userObj.uid, userObj).then(() => userObj);
       },
     ).catch((error) => {
       // eslint-disable-next-line
@@ -51,9 +69,28 @@ const getUser = (userId, fbUser, fromCache = false) => {
     });
 };
 
+const getUserAndSet = (userId, fbUser, fromCache = false) => {
+  return getUser(userId, fromCache).then((userData) => {
+    if (userData) {
+      userData.setFBuser(fbUser);
+
+      return userData;
+    } else {
+      const userObj = new User(userId);
+
+      userObj.setFBuser(fbUser);
+
+      return setUser(userObj.uid, userObj).then(() => userObj);
+    }
+  });
+};
+
 const UserRepository = {
   getUser,
   setUser,
+  getUserAndSet,
+  setUserBookData,
+  getUserBookData,
 };
 
 export default UserRepository;

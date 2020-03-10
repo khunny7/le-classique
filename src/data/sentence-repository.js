@@ -1,5 +1,6 @@
 import firebase from 'firebase/app';
 import 'firebase/firestore';
+import UserRepository from './user-repository';
 
 const sentencesRef = () => firebase.firestore().collection('sentences');
 
@@ -30,12 +31,15 @@ const SentenceRepository = {
     const translationRef = sentencesRef().doc(sentenceId).collection('trans');
 
     return new Promise((resolve) => {
-      translationRef.get(getOptions)
+      translationRef
+        .get(getOptions)
         .then(((qsnap) => {
           if (qsnap.size > 0) {
+            const firstDocData = qsnap.docs[0].data();
             resolve({
-              text: qsnap.docs[0].data().text,
+              text: firstDocData.text,
               id: qsnap.docs[0].id,
+              authorId: firstDocData.author,
               exists: true,
             });
           } else {
@@ -45,6 +49,16 @@ const SentenceRepository = {
             });
           }
         }));
+    }).then((translationData) => {
+      if (translationData.exists) {
+        return UserRepository.getUser(translationData.authorId).then((userObj) => {
+          translationData.author = userObj.getData();
+
+          return translationData;
+        });
+      } else {
+        return translationData;
+      }
     });
   },
   updateTranslation: (sentenceId, translationId, text) => {
