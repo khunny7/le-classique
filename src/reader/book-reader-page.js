@@ -4,14 +4,16 @@ import PropTypes from 'prop-types';
 import ePub from 'epubjs';
 import './book-reader-style.less';
 import BookRepository from '../data/book-repository';
+import UserRepository from '../data/user-repository';
 import ReaderController from './reader-controller';
 import ReaderTitleBar from './reader-title-bar';
 import BookReaderHeader from './book-reader-header';
 import TranslationController from './translation-controller';
+import { UserContext } from '../user-context';
 
 class BookReaderPageComponent extends React.Component {
-  constructor(props) {
-    super(props);
+  constructor(props, context) {
+    super(props, context);
 
     this.state = {
       book: null,
@@ -36,7 +38,31 @@ class BookReaderPageComponent extends React.Component {
           height: '100%',
           ignoreClass: 'annotator-hl',
         });
-        this.rendition.display();
+
+        UserRepository.getUserBookData(
+          this.context.currentUser.uid,
+          bookId,
+        ).then((bookData) => {
+          if (bookData && bookData.location) {
+            this.rendition.display(bookData.location);
+          } else {
+            this.rendition.display();
+          }
+        });
+
+        // Automatically save the location
+        this.rendition.on('locationChanged', (/* locationChangedEvent */) => {
+          const locationStart = this.rendition.location.start.cfi;
+
+          UserRepository.setUserBookData(
+            this.context.currentUser.uid,
+            bookId,
+            {
+              location: locationStart,
+            }
+          )
+          this.context.currentUser;
+        });
 
         this.setState({
           book,
@@ -47,6 +73,10 @@ class BookReaderPageComponent extends React.Component {
   }
 
   componentWillUnmount() {
+    if (this.rendition) {
+      this.rendition.destroy();
+    }
+
     if (this.epubBook) {
       this.epubBook.destroy();
     }
@@ -97,6 +127,8 @@ BookReaderPageComponent.propTypes = {
     pathname: PropTypes.string.isRequired,
   }).isRequired,
 };
+
+BookReaderPageComponent.contextType = UserContext;
 
 const BookReaderPage = withRouter(BookReaderPageComponent);
 export default BookReaderPage;
