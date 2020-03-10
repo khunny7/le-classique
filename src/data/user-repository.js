@@ -1,5 +1,6 @@
 import firebase from 'firebase/app';
 import 'firebase/firestore';
+import { defaults } from 'lodash';
 import { userConverter, User } from '../model/user';
 
 const getUserCollection = () => firebase.firestore().collection('users');
@@ -36,9 +37,25 @@ const getUserBookData = (userId, bookId) => {
       (doc) => {
         if (doc.exists) {
           return doc.data();
-        } else {
-          return null;
         }
+
+        return null;
+      }
+    );
+};
+
+const getUserBookDataAll = (userId) => {
+  const userRef = getUserCollection().doc(userId);
+  const bookDataCollectionRef = userRef.collection('userBookData');
+
+  return bookDataCollectionRef.get()
+    .then(
+      (qsnap) => {
+        if (qsnap.size > 0) {
+          return qsnap.docs.map((doc) => defaults({ id: doc.id }, doc.data()));
+        }
+
+        return [];
       }
     );
 };
@@ -59,9 +76,9 @@ const getUser = (userId, fromCache = false) => {
           const userObj = doc.data();
 
           return userObj;
-        } else {
-          null;
         }
+
+        return null;
       },
     ).catch((error) => {
       // eslint-disable-next-line
@@ -75,13 +92,13 @@ const getUserAndSet = (userId, fbUser, fromCache = false) => {
       userData.setFBuser(fbUser);
 
       return userData;
-    } else {
-      const userObj = new User(userId);
-
-      userObj.setFBuser(fbUser);
-
-      return setUser(userObj.uid, userObj).then(() => userObj);
     }
+
+    const userObj = new User(userId);
+
+    userObj.setFBuser(fbUser);
+
+    return setUser(userObj.uid, userObj).then(() => userObj);
   });
 };
 
@@ -91,6 +108,7 @@ const UserRepository = {
   getUserAndSet,
   setUserBookData,
   getUserBookData,
+  getUserBookDataAll,
 };
 
 export default UserRepository;

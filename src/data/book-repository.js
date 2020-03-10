@@ -27,6 +27,16 @@ class BookRepository {
     });
   }
 
+  static getBooks(bookIds) {
+    return bookCollection()
+      .where(firebase.firestore.FieldPath.documentId(), 'in', bookIds)
+      .withConverter(bookConverter)
+      .get()
+      .then((qs) => {
+        return qs.docs.map((doc) => doc.data());
+      });
+  }
+
   static getBookContent(storageUrl) {
     const httpsReference = storage().refFromURL(storageUrl);
 
