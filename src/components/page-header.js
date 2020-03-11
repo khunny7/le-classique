@@ -7,7 +7,7 @@ import {
   NavDropdown,
 } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import { UserContext } from '../user-context';
+import { UserContext } from '../context/user-context';
 
 class PageHader extends React.Component {
   constructor(props, context) {

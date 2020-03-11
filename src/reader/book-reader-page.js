@@ -9,7 +9,7 @@ import ReaderController from './reader-controller';
 import ReaderTitleBar from './reader-title-bar';
 import BookReaderHeader from './book-reader-header';
 import TranslationController from './translation-controller';
-import { UserContext } from '../user-context';
+import { UserContext } from '../context/user-context';
 
 class BookReaderPageComponent extends React.Component {
   constructor(props, context) {
