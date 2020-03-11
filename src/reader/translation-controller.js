@@ -14,7 +14,7 @@ const defaultState = {
   translatedText: '',
   editMode: false,
   translationId: '',
-  translationAuthor: {},
+  translationAuthor: null,
 };
 
 class TranslationController extends React.Component {
@@ -52,12 +52,24 @@ class TranslationController extends React.Component {
             this.setState({
               translatedText: 'no translation found',
               translationId: '',
-              translationAuthor: {},
+              translationAuthor: null,
             });
           }
         });
       }
     });
+
+    // For selection just in case
+    // rendition.on('selected', (cfiRange) => {
+    //   rendition.book.getRange(cfiRange).then((range) => {
+    //     let text = '';
+
+    //     if (range) {
+    //       text = range.toString();
+    //     }
+
+    //   });
+    // });
 
     rendition.on('locationChanged', (/* locationChangedEvent */) => {
       this.reset();
@@ -132,11 +144,16 @@ class TranslationController extends React.Component {
           <p>
             {translatedText}
           </p>
-          <UserInline
-            photoURL={translationAuthor.photoURL}
-            displayName={translationAuthor.displayName}
-            uid={translationAuthor.uid}
-          />
+          {
+            translationAuthor
+            && (
+              <UserInline
+                photoURL={translationAuthor.photoURL}
+                displayName={translationAuthor.displayName}
+                uid={translationAuthor.uid}
+              />
+            )
+          }
           {
             translatedText === 'no translation found'
             && <AutoTranslation originalText={currentElement.innerText} />
