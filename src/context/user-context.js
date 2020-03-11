@@ -56,12 +56,12 @@ UserContextProvider.propTypes = {
   children: PropTypes.element.isRequired,
 };
 
-const withUserContext = Component => (
-  props => (
+const withUserContext = (Component) => (
+  (props) => (
     <UserContext.Consumer>
-      {context => <Component userContext={context} {...props} />}
+      {(context) => <Component userContext={context} {...props} />}
     </UserContext.Consumer>
   )
-)
+);
 
 export { UserContext, UserContextProvider, withUserContext };

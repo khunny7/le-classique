@@ -7,7 +7,8 @@ import {
   NavDropdown,
 } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import { UserContext } from '../context/user-context';
+import { withUserContext } from '../context/user-context';
+import { withLocaleContext } from '../context/locale-context';
 
 class PageHader extends React.Component {
   constructor(props, context) {
@@ -17,8 +18,11 @@ class PageHader extends React.Component {
   }
 
   render() {
-    const { mode, onReaderSetting } = this.props;
-    const { currentUser, signOut } = this.context;
+    const {
+      mode, onReaderSetting, userContext, localeContext,
+    } = this.props;
+    const { currentUser, signOut } = userContext;
+    const { textLoader, setCurrentLocale, currentLocale } = localeContext;
 
     const onSignOut = () => {
       signOut();
@@ -31,7 +35,9 @@ class PageHader extends React.Component {
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           <Navbar.Collapse id="responsive-navbar-nav">
             <Nav className="mr-auto">
-              <Link to="/" className="nav-link">Home</Link>
+              <Link to="/" className="nav-link">
+                {textLoader('Home_Label')}
+              </Link>
               {
                 mode === 'book-reader'
                 && (
@@ -39,11 +45,23 @@ class PageHader extends React.Component {
                     variant="outline-secondary"
                     onClick={() => onReaderSetting(true)}
                   >
-                    Reader Setting
+                    {textLoader('Reader_Setting_Button')}
                   </Button>
                 )
               }
-
+              <Button
+                variant="outline-secondary"
+                onClick={() => setCurrentLocale(currentLocale === 'en' ? 'ko' : 'en')}
+              >
+                {
+                  currentLocale === 'en'
+                  && '한국어'
+                }
+                {
+                  currentLocale === 'ko'
+                  && 'English'
+                }
+              </Button>
             </Nav>
             <Nav>
               {
@@ -63,7 +81,7 @@ class PageHader extends React.Component {
                     <NavDropdown.Divider />
                     <NavDropdown.Item href="#action/3.4">Separated link</NavDropdown.Item>
                     <NavDropdown.Item onClick={onSignOut}>
-                      Sign out
+                      {textLoader('Log_Out_Label')}
                     </NavDropdown.Item>
                   </NavDropdown>
                 )
@@ -71,7 +89,7 @@ class PageHader extends React.Component {
               {
                 !currentUser && (
                   <Link to="/login" className="nav-link">
-                    Log in
+                    {textLoader('Log_In_Label')}
                   </Link>
                 )
               }
@@ -83,11 +101,22 @@ class PageHader extends React.Component {
   }
 }
 
-PageHader.contextType = UserContext;
-
 PageHader.propTypes = {
   mode: PropTypes.string,
   onReaderSetting: PropTypes.func,
+  localeContext: PropTypes.shape({
+    textLoader: PropTypes.func.isRequired,
+    setCurrentLocale: PropTypes.func.isRequired,
+    currentLocale: PropTypes.string.isRequired,
+  }).isRequired,
+  userContext: PropTypes.shape({
+    currentUser: PropTypes.shape({
+      uid: PropTypes.string.isRequired,
+      photoURL: PropTypes.string.isRequired,
+      displayName: PropTypes.string.isRequired,
+    }),
+    signOut: PropTypes.func.isRequired,
+  }).isRequired,
 };
 
 PageHader.defaultProps = {
@@ -95,4 +124,4 @@ PageHader.defaultProps = {
   onReaderSetting: () => { },
 };
 
-export default PageHader;
+export default withLocaleContext(withUserContext(PageHader));

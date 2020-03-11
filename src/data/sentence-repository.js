@@ -1,5 +1,6 @@
 import firebase from 'firebase/app';
 import 'firebase/firestore';
+import { defaults } from 'lodash';
 import UserRepository from './user-repository';
 
 const sentencesRef = () => firebase.firestore().collection('sentences');
@@ -52,13 +53,12 @@ const SentenceRepository = {
     }).then((translationData) => {
       if (translationData.exists) {
         return UserRepository.getUser(translationData.authorId).then((userObj) => {
-          translationData.author = userObj.getData();
+          const translationWithAuthor = defaults(translationData, { author: userObj.getData() });
 
-          return translationData;
+          return translationWithAuthor;
         });
-      } else {
-        return translationData;
       }
+      return translationData;
     });
   },
   updateTranslation: (sentenceId, translationId, text) => {
