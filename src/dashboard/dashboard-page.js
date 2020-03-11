@@ -4,7 +4,8 @@ import BookListView from './book-list-view';
 import BookRepository from '../data/book-repository';
 import UserRepository from '../data/user-repository';
 import PageHeader from '../components/page-header';
-import { UserContext } from '../user-context';
+import { withUserContext } from '../context/user-context';
+import { withLocaleContext } from '../context/locale-context';
 import './dashboard-style.less';
 
 class DashboardPage extends React.Component {
@@ -26,7 +27,7 @@ class DashboardPage extends React.Component {
   }
 
   fetchDataAndSetState() {
-    const { currentUser } = this.context;
+    const { currentUser } = this.props.userContext;
 
     if (!this.fetchBooks) {
       this.fetchBooks = BookRepository.get().then((books) => {
@@ -55,6 +56,7 @@ class DashboardPage extends React.Component {
 
   render() {
     const { books, userBooks } = this.state;
+    const { textLoader, setCurrentLocale } = this.props.localeContext;
     return (
       <div className="dashboard-container">
         <PageHeader />
@@ -63,12 +65,12 @@ class DashboardPage extends React.Component {
           <p>
             Le-classique is a serivce developed to provide a reading expereince across different langauges
           </p>
-          <Button variant="primary">Learn more</Button>
+          <Button variant="primary" onClick={() => setCurrentLocale('ko')}>한국어로</Button>
         </Jumbotron>
         <Container>
           <Row>
             <Col md={12}>
-              Books you have read
+              {textLoader('Books_You_Read')}
             </Col>
           </Row>
           <BookListView books={userBooks} />
@@ -86,6 +88,4 @@ class DashboardPage extends React.Component {
   }
 }
 
-DashboardPage.contextType = UserContext;
-
-export default DashboardPage;
+export default withUserContext(withLocaleContext(DashboardPage));

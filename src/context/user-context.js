@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import firebase from 'firebase/app';
-import UserRepository from './data/user-repository';
+import UserRepository from '../data/user-repository';
 
 const UserContext = React.createContext({
   currentUser: {
@@ -56,4 +56,12 @@ UserContextProvider.propTypes = {
   children: PropTypes.element.isRequired,
 };
 
-export { UserContext, UserContextProvider };
+const withUserContext = Component => (
+  props => (
+    <UserContext.Consumer>
+      {context => <Component userContext={context} {...props} />}
+    </UserContext.Consumer>
+  )
+)
+
+export { UserContext, UserContextProvider, withUserContext };
