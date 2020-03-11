@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import firebase from 'firebase/app';
+import 'firebase/auth';
 import UserRepository from '../data/user-repository';
 
 const UserContext = React.createContext({

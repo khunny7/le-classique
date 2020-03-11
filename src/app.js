@@ -4,7 +4,7 @@ import {
   Switch,
   Route,
 } from 'react-router-dom';
-import SignInPage from './sign-in-page/signInPage';
+import SignInPage from './sign-in-page/custom-sign-in-page';
 import DashboardPage from './dashboard/dashboard-page';
 import BookReaderPage from './reader/book-reader-page';
 import 'bootstrap/dist/css/bootstrap.min.css';
