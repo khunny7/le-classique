@@ -32,9 +32,7 @@ class BookRepository {
       .where(firebase.firestore.FieldPath.documentId(), 'in', bookIds)
       .withConverter(bookConverter)
       .get()
-      .then((qs) => {
-        return qs.docs.map((doc) => doc.data());
-      });
+      .then((qs) => qs.docs.map((doc) => doc.data()));
   }
 
   static getBookContent(storageUrl) {

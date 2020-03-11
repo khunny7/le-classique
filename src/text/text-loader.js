@@ -1,15 +1,15 @@
+import { has } from 'lodash';
 import textData from './text-data';
 
 const GetLocaleTextLoader = (locale) => {
-  const getString = (key, options) => {
-    if (textData.hasOwnProperty(key)) {
+  const getString = (key) => {
+    if (has(textData, key)) {
       return textData[key][locale];
-    } else {
-      return key;
     }
+    return key;
   };
 
   return getString;
-}
+};
 
 export default GetLocaleTextLoader;

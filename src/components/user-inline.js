@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
 const UserInline = (props) => {
@@ -27,7 +28,13 @@ const UserInline = (props) => {
         {displayName}
       </span>
     </Link>
-  )
+  );
+};
+
+UserInline.propTypes = {
+  photoURL: PropTypes.string.isRequired,
+  displayName: PropTypes.string.isRequired,
+  uid: PropTypes.string.isRequired,
 };
 
 export default UserInline;

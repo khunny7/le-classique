@@ -15,20 +15,22 @@ const LocaleContextProvider = (props) => {
       {
         textLoader: GetLocaleTextLoader(currentLocale),
         setCurrentLocale: (locale) => setCurrentLocale(locale),
+        currentLocale,
       }
-    }>
+    }
+    >
       {children}
     </LocaleContext.Provider>
   );
-}
+};
 
-const withLocaleContext = Component => (
-  props => (
+const withLocaleContext = (Component) => (
+  (props) => (
     <LocaleContext.Consumer>
-      {context => <Component localeContext={context} {...props} />}
+      {(context) => <Component localeContext={context} {...props} />}
     </LocaleContext.Consumer>
   )
-)
+);
 
 
 LocaleContextProvider.propTypes = {

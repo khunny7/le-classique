@@ -1,5 +1,8 @@
 import React from 'react';
-import { Jumbotron, Button, Container, Row, Col } from 'react-bootstrap';
+import PropTypes from 'prop-types';
+import {
+  Jumbotron, Container, Row, Col,
+} from 'react-bootstrap';
 import BookListView from './book-list-view';
 import BookRepository from '../data/book-repository';
 import UserRepository from '../data/user-repository';
@@ -27,7 +30,8 @@ class DashboardPage extends React.Component {
   }
 
   fetchDataAndSetState() {
-    const { currentUser } = this.props.userContext;
+    const { userContext } = this.props;
+    const { currentUser } = userContext;
 
     if (!this.fetchBooks) {
       this.fetchBooks = BookRepository.get().then((books) => {
@@ -56,16 +60,18 @@ class DashboardPage extends React.Component {
 
   render() {
     const { books, userBooks } = this.state;
-    const { textLoader, setCurrentLocale } = this.props.localeContext;
+    const { localeContext } = this.props;
+    const { textLoader } = localeContext;
     return (
       <div className="dashboard-container">
         <PageHeader />
         <Jumbotron>
-          <h1>Hello, users!</h1>
+          <h1>
+            {textLoader('Hello_Users_Label')}
+          </h1>
           <p>
-            Le-classique is a serivce developed to provide a reading expereince across different langauges
+            {textLoader('App_Description_Label')}
           </p>
-          <Button variant="primary" onClick={() => setCurrentLocale('ko')}>한국어로</Button>
         </Jumbotron>
         <Container>
           <Row>
@@ -78,7 +84,7 @@ class DashboardPage extends React.Component {
         <Container>
           <Row>
             <Col md={12}>
-              Browse the books
+              {textLoader('Books_All_Library')}
             </Col>
           </Row>
           <BookListView books={books} />
@@ -87,5 +93,16 @@ class DashboardPage extends React.Component {
     );
   }
 }
+
+DashboardPage.propTypes = {
+  localeContext: PropTypes.shape({
+    textLoader: PropTypes.func.isRequired,
+  }).isRequired,
+  userContext: PropTypes.shape({
+    currentUser: PropTypes.shape({
+      uid: PropTypes.string.isRequired,
+    }),
+  }).isRequired,
+};
 
 export default withUserContext(withLocaleContext(DashboardPage));

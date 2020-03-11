@@ -40,7 +40,7 @@ const getUserBookData = (userId, bookId) => {
         }
 
         return null;
-      }
+      },
     );
 };
 
@@ -56,7 +56,7 @@ const getUserBookDataAll = (userId) => {
         }
 
         return [];
-      }
+      },
     );
 };
 
@@ -86,21 +86,19 @@ const getUser = (userId, fromCache = false) => {
     });
 };
 
-const getUserAndSet = (userId, fbUser, fromCache = false) => {
-  return getUser(userId, fromCache).then((userData) => {
-    if (userData) {
-      userData.setFBuser(fbUser);
+const getUserAndSet = (userId, fbUser, fromCache = false) => getUser(userId, fromCache).then((userData) => {
+  if (userData) {
+    userData.setFBuser(fbUser);
 
-      return userData;
-    }
+    return userData;
+  }
 
-    const userObj = new User(userId);
+  const userObj = new User(userId);
 
-    userObj.setFBuser(fbUser);
+  userObj.setFBuser(fbUser);
 
-    return setUser(userObj.uid, userObj).then(() => userObj);
-  });
-};
+  return setUser(userObj.uid, userObj).then(() => userObj);
+});
 
 const UserRepository = {
   getUser,

@@ -9,7 +9,7 @@ import ReaderController from './reader-controller';
 import ReaderTitleBar from './reader-title-bar';
 import BookReaderHeader from './book-reader-header';
 import TranslationController from './translation-controller';
-import { UserContext } from '../context/user-context';
+import { withUserContext } from '../context/user-context';
 
 class BookReaderPageComponent extends React.Component {
   constructor(props, context) {
@@ -23,7 +23,7 @@ class BookReaderPageComponent extends React.Component {
 
   componentDidMount() {
     const patt = new RegExp('^/book/(.+)$');
-    const { location } = this.props;
+    const { location, userContext } = this.props;
     const path = location.pathname;
     const bookId = patt.exec(path)[1];
 
@@ -39,30 +39,35 @@ class BookReaderPageComponent extends React.Component {
           ignoreClass: 'annotator-hl',
         });
 
-        UserRepository.getUserBookData(
-          this.context.currentUser.uid,
-          bookId,
-        ).then((bookData) => {
-          if (bookData && bookData.location) {
-            this.rendition.display(bookData.location);
-          } else {
-            this.rendition.display();
+        // Automatically save the location
+        this.rendition.on('locationChanged', (/* locationChangedEvent */) => {
+          if (userContext.currentUser && userContext.currentUser.uid) {
+            const locationStart = this.rendition.location.start.cfi;
+
+            UserRepository.setUserBookData(
+              userContext.currentUser.uid,
+              bookId,
+              {
+                location: locationStart,
+              },
+            );
           }
         });
 
-        // Automatically save the location
-        this.rendition.on('locationChanged', (/* locationChangedEvent */) => {
-          const locationStart = this.rendition.location.start.cfi;
-
-          UserRepository.setUserBookData(
-            this.context.currentUser.uid,
+        if (userContext.currentUser && userContext.currentUser.uid) {
+          UserRepository.getUserBookData(
+            userContext.currentUser.uid,
             bookId,
-            {
-              location: locationStart,
+          ).then((bookData) => {
+            if (bookData && bookData.location) {
+              this.rendition.display(bookData.location);
+            } else {
+              this.rendition.display();
             }
-          )
-          this.context.currentUser;
-        });
+          });
+        } else {
+          this.rendition.display();
+        }
 
         this.setState({
           book,
@@ -126,9 +131,11 @@ BookReaderPageComponent.propTypes = {
   location: PropTypes.shape({
     pathname: PropTypes.string.isRequired,
   }).isRequired,
+  userContext: PropTypes.shape({
+    currentUser: PropTypes.shape({
+      uid: PropTypes.string,
+    }),
+  }).isRequired,
 };
 
-BookReaderPageComponent.contextType = UserContext;
-
-const BookReaderPage = withRouter(BookReaderPageComponent);
-export default BookReaderPage;
+export default withUserContext(withRouter(BookReaderPageComponent));
