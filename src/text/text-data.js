@@ -35,6 +35,10 @@ const textData = {
     en: 'log in',
     ko: '로그 인',
   },
+  Log_In_Reason_Description: {
+    en: 'For personalized experience, please log in.',
+    ko: '로그인을 하시면 개인화된 서비스를 이용하실 수 있습니다.'
+  },
 };
 
 export default textData;
