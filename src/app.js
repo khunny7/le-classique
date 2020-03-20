@@ -7,6 +7,7 @@ import {
 import SignInPage from './sign-in-page/custom-sign-in-page';
 import DashboardPage from './dashboard/dashboard-page';
 import BookReaderPage from './reader/book-reader-page';
+import BooksManagerPage from './books-manager/books-manager';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { UserContextProvider } from './context/user-context';
 import { LocaleContextProvider } from './context/locale-context';
@@ -37,6 +38,9 @@ class App extends React.Component {
               </Route>
               <Route path="/book">
                 <BookReaderPage />
+              </Route>
+              <Route path="/books-manager">
+                <BooksManagerPage />
               </Route>
             </Switch>
           </Router>

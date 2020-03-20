@@ -38,6 +38,9 @@ class PageHader extends React.Component {
               <Link to="/" className="nav-link" lang={currentLocale}>
                 {textLoader('Home_Label')}
               </Link>
+              <Link to="/books-manager" className="nav-link" lang={currentLocale}>
+                {textLoader('Book_Manage_Label')}
+              </Link>
               {
                 mode === 'book-reader'
                 && (

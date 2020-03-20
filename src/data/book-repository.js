@@ -35,6 +35,32 @@ class BookRepository {
       .then((qs) => qs.docs.map((doc) => doc.data()));
   }
 
+  static UploadBookFile(fileObj) {
+    const newFileRef = storage().ref(fileObj.name);
+
+    return newFileRef.put(fileObj).then((snapshot) => {
+      return {
+        name: snapshot.metadata.name,
+        path: snapshot.metadata.fullPath,
+      };
+    });
+  }
+
+  static UploadBookCoverFile(fileObj) {
+    const newFileRef = storage().ref(`book-covers/${fileObj.name}`);
+
+    return newFileRef.put(fileObj).then((snapshot) => {
+      return {
+        name: snapshot.metadata.name,
+        path: snapshot.metadata.fullPath,
+      };
+    });
+  }
+
+  static GetBookCoverFile(path) {
+    return storage().ref(path).getDownloadURL();
+  }
+
   static getBookContent(storageUrl) {
     const httpsReference = storage().refFromURL(storageUrl);
 

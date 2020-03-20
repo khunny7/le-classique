@@ -39,6 +39,10 @@ const textData = {
     en: 'For personalized experience, please log in.',
     ko: '로그인을 하시면 개인화된 서비스를 이용하실 수 있습니다.'
   },
+  Book_Manage_Label: {
+    en: 'Manage books',
+    ko: '책 관리',
+  },
 };
 
 export default textData;
