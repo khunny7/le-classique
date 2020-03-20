@@ -12,7 +12,7 @@ import './dashboard-style.less';
 const DashboardPage = (props) => {
   const [books, setBooks] = useState([]);
   const localeContext = useContext(LocaleContext);
-  const { textLoader } = localeContext;
+  const { textLoader, currentLocale } = localeContext;
 
   useEffect(() => {
     BookRepository.get().then((result) => {
@@ -24,10 +24,10 @@ const DashboardPage = (props) => {
     <div className="dashboard-container">
       <PageHeader />
       <Jumbotron>
-        <h1>
+        <h1 lang={currentLocale}>
           {textLoader('Hello_Users_Label')}
         </h1>
-        <p>
+        <p lang={currentLocale}>
           {textLoader('App_Description_Label')}
         </p>
       </Jumbotron>
@@ -36,7 +36,7 @@ const DashboardPage = (props) => {
       </Container>
       <Container>
         <Row>
-          <Col md={12}>
+          <Col md={12} lang={currentLocale}>
             {textLoader('Books_All_Library')}
           </Col>
         </Row>

@@ -11,7 +11,7 @@ const UserBookList = (props) => {
   const userContext = useContext(UserContext);
   const { currentUser } = userContext;
   const localeContext = useContext(LocaleContext);
-  const { textLoader } = localeContext;
+  const { textLoader, currentLocale } = localeContext;
 
   useEffect(() => {
     if (currentUser) {
@@ -33,7 +33,9 @@ const UserBookList = (props) => {
         currentUser &&
         (
           <>
-            {textLoader('Books_You_Read')}
+            <p lang={currentLocale}>
+              {textLoader('Books_You_Read')}
+            </p>
             <BookListView books={userBooks} />
           </>
         )
@@ -42,7 +44,7 @@ const UserBookList = (props) => {
         !currentUser && (
           <>
             <div>{textLoader('Log_In_Reason_Description')}</div>
-            <Link to="/login">
+            <Link to="/login" lang={currentLocale}>
               {textLoader('Log_In_Label')}
             </Link>
           </>
