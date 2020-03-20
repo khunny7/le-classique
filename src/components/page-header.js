@@ -35,13 +35,14 @@ class PageHader extends React.Component {
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           <Navbar.Collapse id="responsive-navbar-nav">
             <Nav className="mr-auto">
-              <Link to="/" className="nav-link">
+              <Link to="/" className="nav-link" lang={currentLocale}>
                 {textLoader('Home_Label')}
               </Link>
               {
                 mode === 'book-reader'
                 && (
                   <Button
+                    lang={currentLocale}
                     variant="outline-secondary"
                     onClick={() => onReaderSetting(true)}
                   >
@@ -50,6 +51,7 @@ class PageHader extends React.Component {
                 )
               }
               <Button
+                lang={currentLocale}
                 variant="outline-secondary"
                 onClick={() => setCurrentLocale(currentLocale === 'en' ? 'ko' : 'en')}
               >
@@ -80,7 +82,7 @@ class PageHader extends React.Component {
                     <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
                     <NavDropdown.Divider />
                     <NavDropdown.Item href="#action/3.4">Separated link</NavDropdown.Item>
-                    <NavDropdown.Item onClick={onSignOut}>
+                    <NavDropdown.Item onClick={onSignOut} lang={currentLocale}>
                       {textLoader('Log_Out_Label')}
                     </NavDropdown.Item>
                   </NavDropdown>
@@ -88,7 +90,7 @@ class PageHader extends React.Component {
               }
               {
                 !currentUser && (
-                  <Link to="/login" className="nav-link">
+                  <Link to="/login" className="nav-link" lang={currentLocale}>
                     {textLoader('Log_In_Label')}
                   </Link>
                 )

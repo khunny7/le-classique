@@ -19,7 +19,9 @@ const LocaleContextProvider = (props) => {
       }
     }
     >
-      {children}
+      <div lang={currentLocale}>
+        {children}
+      </div>
     </LocaleContext.Provider>
   );
 };
