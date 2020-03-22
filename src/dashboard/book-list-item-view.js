@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Col, Image } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { Book } from '../model/book';
+import CoverImage from '../components/cover-image';
 
 const BookListItemView = (props) => {
   const { book } = props;
@@ -17,7 +18,7 @@ const BookListItemView = (props) => {
     >
       <Link to={linkTo}>
         <div className="book-list-item-content">
-          <Image src={book.cover} fluid />
+          <CoverImage coverPath={book.cover} />
           <p className="book-title">{book.title}</p>
           <p className="book-author">{book.author}</p>
         </div>

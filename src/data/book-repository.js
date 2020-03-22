@@ -11,7 +11,10 @@ class BookRepository {
    * @returns { books } - array of object type Book
    */
   static get() {
-    return bookCollection().withConverter(bookConverter).get().then((querySnapshot) => querySnapshot.docs.map((querySnapshotDoc) => querySnapshotDoc.data()));
+    return bookCollection()
+      .withConverter(bookConverter)
+      .get()
+      .then((querySnapshot) => querySnapshot.docs.map((querySnapshotDoc) => querySnapshotDoc.data()));
   }
 
   static getBookById(bookId, fromCache = false) {
@@ -33,6 +36,13 @@ class BookRepository {
       .withConverter(bookConverter)
       .get()
       .then((qs) => qs.docs.map((doc) => doc.data()));
+  }
+
+  static saveBook(bookObj) {
+    return bookCollection()
+      .doc(bookObj.id)
+      .withConverter(bookConverter)
+      .set(bookObj);
   }
 
   static UploadBookFile(fileObj) {
@@ -58,11 +68,17 @@ class BookRepository {
   }
 
   static GetBookCoverFile(path) {
+    if (path.indexOf('http') === 0) {
+      return new Promise((resolve) => {
+        resolve(path);
+      });
+    }
+
     return storage().ref(path).getDownloadURL();
   }
 
-  static getBookContent(storageUrl) {
-    const httpsReference = storage().refFromURL(storageUrl);
+  static getBookContent(storageRef) {
+    const httpsReference = storage().ref(storageRef);
 
     return new Promise((resolve) => {
       httpsReference.getDownloadURL().then((url) => {
