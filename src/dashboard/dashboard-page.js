@@ -23,13 +23,20 @@ const DashboardPage = (props) => {
   return (
     <div className="dashboard-container">
       <PageHeader />
-      <Jumbotron>
-        <h1 lang={currentLocale}>
-          {textLoader('Hello_Users_Label')}
-        </h1>
-        <p lang={currentLocale}>
-          {textLoader('App_Description_Label')}
-        </p>
+      <Jumbotron className="jumbotron">
+        <div className="welcome-user">
+          <div className="welcome-user-text">
+            <h1 className="user-name" lang={currentLocale}>
+              {textLoader('Hello_Users_Label')}
+            </h1>
+            <p className="app-description" lang={currentLocale}>
+              {textLoader('App_Description_Label')}
+            </p>
+            <button className="browsing-btn">
+              Browse Bookshelf &#11206;
+            </button>
+          </div>
+        </div>
       </Jumbotron>
       <Container>
         <UserBookList />
