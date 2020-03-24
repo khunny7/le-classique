@@ -9,6 +9,7 @@ import {
 import { Link } from 'react-router-dom';
 import { withUserContext } from '../context/user-context';
 import { withLocaleContext } from '../context/locale-context';
+import './page-header.less';
 
 class PageHader extends React.Component {
   constructor(props, context) {
@@ -30,7 +31,7 @@ class PageHader extends React.Component {
 
     return (
       <div className="page-header-container">
-        <Navbar collapseOnSelect expand="md" bg="dark" variant="dark">
+        <Navbar className="nav-bar" collapseOnSelect expand="md" bg="dark" variant="dark">
           <Navbar.Brand href="/">Le-classique</Navbar.Brand>
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           <Navbar.Collapse id="responsive-navbar-nav">
