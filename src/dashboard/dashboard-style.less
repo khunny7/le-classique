@@ -1,7 +1,9 @@
+@import "../color.less";
+
 .dashboard-container {
   .jumbotron {
-    background-color: #010101;
-    color:#fff;
+    background-color: @darkThemeBackground;
+    color:@pureWhite;
     padding: 0;
     border-radius: 0;
     .welcome-user {
@@ -14,6 +16,9 @@
       background-position: right center;
       display: flex;
       align-items: center;
+      .welcome-user-text{
+        padding-left: 2rem;
+      }
       .user-name{
         margin-bottom: 25px;
       }
@@ -27,8 +32,8 @@
         padding: 10px 30px;
         border-radius: 30px;
         border: 0;
-        color: #fff;
-        background-color: #a51c3e;
+        color: @pureWhite;
+        background-color: @pointColor;
       }  
     }  
   }

@@ -1,6 +1,6 @@
 import React, { useState, useContext, useEffect } from 'react';
 import {
-  Jumbotron, Container, Row, Col,
+  Jumbotron, Container, Row, Col, Button
 } from 'react-bootstrap';
 import BookListView from './book-list-view';
 import BookRepository from '../data/book-repository';
@@ -32,9 +32,9 @@ const DashboardPage = (props) => {
             <p className="app-description" lang={currentLocale}>
               {textLoader('App_Description_Label')}
             </p>
-            <button className="browsing-btn">
+            <Button className="browsing-btn">
               Browse Bookshelf &#11206;
-            </button>
+            </Button>
           </div>
         </div>
       </Jumbotron>
