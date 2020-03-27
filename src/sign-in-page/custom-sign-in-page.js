@@ -1,10 +1,10 @@
 import React from 'react';
 import firebase from 'firebase/app';
 import { Button } from 'react-bootstrap';
-import { withRouter } from 'react-router-dom';
+import { useHistory } from "react-router-dom";
 
 const SignInPage = (props) => {
-  const { history } = props;
+  const history = useHistory();
 
   const signInWithGoogle = () => {
     const provider = new firebase.auth.GoogleAuthProvider();
@@ -31,4 +31,4 @@ const SignInPage = (props) => {
   );
 };
 
-export default withRouter(SignInPage);
+export default SignInPage;

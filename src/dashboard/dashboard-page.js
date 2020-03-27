@@ -2,6 +2,7 @@ import React, { useState, useContext, useEffect } from 'react';
 import {
   Jumbotron, Container, Row, Col, Button
 } from 'react-bootstrap';
+import { useHistory } from "react-router-dom";
 import BookListView from './book-list-view';
 import BookRepository from '../data/book-repository';
 import PageHeader from '../components/page-header';
@@ -13,6 +14,11 @@ const DashboardPage = (props) => {
   const [books, setBooks] = useState([]);
   const localeContext = useContext(LocaleContext);
   const { textLoader, currentLocale } = localeContext;
+  const history = useHistory();
+
+  const onBookSelected = (bookId) => {
+    history.push(`/book/${bookId}`);
+  };
 
   useEffect(() => {
     BookRepository.get().then((result) => {
@@ -33,7 +39,8 @@ const DashboardPage = (props) => {
               {textLoader('App_Description_Label')}
             </p>
             <Button className="browsing-btn">
-              Browse Bookshelf &#11206;
+              {textLoader('Book_Bookshelf_Button_Label')}
+              &nbsp;&#11206;
             </Button>
           </div>
         </div>
@@ -47,7 +54,10 @@ const DashboardPage = (props) => {
             {textLoader('Books_All_Library')}
           </Col>
         </Row>
-        <BookListView books={books} />
+        <BookListView
+          books={books}
+          onBookSelected={onBookSelected}
+        />
       </Container>
     </div>
   );
