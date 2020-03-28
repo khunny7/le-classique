@@ -7,6 +7,7 @@ import BookEditor from './book-editor';
 
 const BooksManager = (props) => {
   const [books, setBooks] = useState([]);
+  const [currentBook, setCurrentBook] = useState(null);
 
   useEffect(() => {
     BookRepository.get().then((result) => {
@@ -14,8 +15,17 @@ const BooksManager = (props) => {
     });
   }, []);
 
-  const onBookSelected = (bookId) => {
+  const refreshData = () => {
+    BookRepository.get().then((result) => {
+      setBooks(result);
+      setCurrentBook(null);
+    });
+  };
 
+  const onBookSelected = (bookId) => {
+    BookRepository.getBookById(bookId).then((bookObj) => {
+      setCurrentBook(bookObj);
+    });
   };
 
   return (
@@ -25,7 +35,10 @@ const BooksManager = (props) => {
         books={books}
         onBookSelected={onBookSelected}
       />
-      <BookEditor />
+      <BookEditor
+        book={currentBook}
+        onBookSaved={refreshData}
+      />
     </div>
   );
 };

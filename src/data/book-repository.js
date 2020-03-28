@@ -45,6 +45,12 @@ class BookRepository {
       .set(bookObj);
   }
 
+  static deleteBook(bookId) {
+    return bookCollection()
+      .doc(bookId)
+      .delete();
+  }
+
   static UploadBookFile(fileObj) {
     const newFileRef = storage().ref(fileObj.name);
 
