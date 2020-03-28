@@ -2,16 +2,26 @@ import React, { useState, useEffect } from 'react';
 // import firebase from 'firebase/app';
 import { Button, Container, InputGroup, Image, Form, Row, Col } from 'react-bootstrap';
 import { FilePicker } from 'react-file-picker';
+import CoverImage from '../components/cover-image';
 import BookRepository from '../data/book-repository';
 import { Book } from '../model/book';
 import './book-editor.less';
 
 const BookEditor = (props) => {
-  const [bookPath, setBookPath] = useState('');
-  const [bookCoverUrl, setBookCoverUrl] = useState('');
-  const [bookCoverPath, setBookCoverPath] = useState('');
-  const [bookTitle, setBookTitle] = useState('');
-  const [bookAuthor, setBookAuthor] = useState('');
+  const { book, onBookSaved } = props;
+  const [bookId, setBookId] = useState(book ? book.id : null);
+  const [bookPath, setBookPath] = useState(book ? book.bookData : '');
+  const [bookCoverPath, setBookCoverPath] = useState(book ? book.cover : '');
+  const [bookTitle, setBookTitle] = useState(book ? book.title : '');
+  const [bookAuthor, setBookAuthor] = useState(book ? book.author : '');
+
+  useEffect(() => {
+    setBookId(book ? book.id : null);
+    setBookPath(book ? book.bookData : '');
+    setBookCoverPath(book ? book.cover : '');
+    setBookTitle(book ? book.title : '');
+    setBookAuthor(book ? book.author : '');
+  }, [book]);
 
   const onBookFilePicked = (fileObj) => {
     BookRepository.UploadBookFile(fileObj).then((fileInfo) => {
@@ -22,10 +32,13 @@ const BookEditor = (props) => {
   const onBookCoverFilePicked = (fileObj) => {
     BookRepository.UploadBookCoverFile(fileObj).then((fileInfo) => {
       setBookCoverPath(fileInfo.path);
-      BookRepository.GetBookCoverFile(fileInfo.path).then((url) => {
-        setBookCoverUrl(url);
-      });
     });
+  };
+
+  const onDeleteBook = () => {
+    if (confirm(`Are you sure, you want to delete book ${bookTitle} by ${bookAuthor}`)) {
+      BookRepository.deleteBook(bookId).then(() => onBookSaved());
+    } 
   };
 
   const onSaveBook = () => {
@@ -37,14 +50,14 @@ const BookEditor = (props) => {
       return;
     }
 
-    const bookToSave = new Book(null, {
+    const bookToSave = new Book(bookId, {
       author: bookAuthor,
       title: bookTitle,
       cover: bookCoverPath,
       bookData: bookPath,
     });
 
-    BookRepository.saveBook(bookToSave);
+    BookRepository.saveBook(bookToSave).then(() => onBookSaved());
   };
 
   return (
@@ -99,17 +112,22 @@ const BookEditor = (props) => {
               <Form.Control
                 type="text"
                 readOnly
-                value={bookCoverUrl}
-                isInvalid={bookCoverUrl.length === 0}
+                value={bookCoverPath}
+                isInvalid={bookCoverPath.length === 0}
               />
               <Form.Control.Feedback type="invalid">
                 Book cover is required
               </Form.Control.Feedback>
             </InputGroup>
           </Col>
-          <Col sm="4">
-            <Image src={bookCoverUrl} thumbnail />
-          </Col>
+          {
+            bookCoverPath.length > 0
+            && (
+              <Col sm="4">
+                <CoverImage coverPath={bookCoverPath} />
+              </Col>
+            )
+          }
         </Form.Group>
         <Form.Group controlId="formBookAuthor">
           <Form.Label>Author</Form.Label>
@@ -145,6 +163,9 @@ const BookEditor = (props) => {
         </Form.Group>
         <Button onClick={onSaveBook}>
           Save book
+        </Button>
+        <Button onClick={onDeleteBook}>
+          Delete book
         </Button>
       </Form>
     </Container>

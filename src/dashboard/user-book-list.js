@@ -1,5 +1,5 @@
 import React, { useState, useContext, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { UserContext } from '../context/user-context';
 import { LocaleContext } from '../context/locale-context';
 import BookRepository from '../data/book-repository';
@@ -12,6 +12,11 @@ const UserBookList = (props) => {
   const { currentUser } = userContext;
   const localeContext = useContext(LocaleContext);
   const { textLoader, currentLocale } = localeContext;
+  const history = useHistory();
+
+  const onBookSelected = (bookId) => {
+    history.push(`/book/${bookId}`);
+  };
 
   useEffect(() => {
     if (currentUser) {
@@ -36,7 +41,10 @@ const UserBookList = (props) => {
             <p lang={currentLocale}>
               {textLoader('Books_You_Read')}
             </p>
-            <BookListView books={userBooks} />
+            <BookListView
+              books={userBooks}
+              onBookSelected={onBookSelected}
+            />
           </>
         )
       }

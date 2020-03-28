@@ -5,18 +5,19 @@ import { Book } from '../model/book';
 import BookListItemView from './book-list-item-view';
 
 const BookListView = (props/* , context */) => {
-  const { books } = props;
+  const { books, onBookSelected } = props;
 
   const renderBookList = () => (
     <Row className="book-list-container">
       {
-          books.map((bookDataItem) => (
-            <BookListItemView
-              key={bookDataItem.id}
-              book={bookDataItem}
-            />
-          ))
-        }
+        books.map((bookDataItem) => (
+          <BookListItemView
+            key={bookDataItem.id}
+            book={bookDataItem}
+            onBookSelected={onBookSelected}
+          />
+        ))
+      }
     </Row>
   );
 
@@ -32,6 +33,7 @@ const BookListView = (props/* , context */) => {
 
 BookListView.propTypes = {
   books: PropTypes.arrayOf(PropTypes.instanceOf(Book)),
+  onBookSelected: PropTypes.func.isRequired,
 };
 
 BookListView.defaultProps = {

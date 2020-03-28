@@ -43,6 +43,10 @@ const textData = {
     en: 'Manage books',
     ko: '책 관리',
   },
+  Book_Bookshelf_Button_Label: {
+    en: 'Browse Bookshelf',
+    ko: '책장 둘러보기',
+  },
 };
 
 export default textData;
