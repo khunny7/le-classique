@@ -6,7 +6,7 @@ import BookRepository from '../data/book-repository';
 import UserRepository from '../data/user-repository';
 import BookListView from './book-list-view';
 
-const UserBookList = (props) => {
+const UserBookList = () => {
   const [userBooks, setUserBooks] = useState([]);
   const userContext = useContext(UserContext);
   const { currentUser } = userContext;
@@ -35,8 +35,8 @@ const UserBookList = (props) => {
   return (
     <>
       {
-        currentUser &&
-        (
+        currentUser
+        && (
           <>
             <p lang={currentLocale}>
               {textLoader('Books_You_Read')}
@@ -60,6 +60,6 @@ const UserBookList = (props) => {
       }
     </>
   );
-}
+};
 
 export default UserBookList;

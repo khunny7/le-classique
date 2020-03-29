@@ -1,8 +1,8 @@
 import React, { useState, useContext, useEffect } from 'react';
 import {
-  Jumbotron, Container, Row, Col, Button
+  Jumbotron, Container, Row, Col, Button,
 } from 'react-bootstrap';
-import { useHistory } from "react-router-dom";
+import { useHistory } from 'react-router-dom';
 import BookListView from './book-list-view';
 import BookRepository from '../data/book-repository';
 import PageHeader from '../components/page-header';
@@ -10,7 +10,7 @@ import { LocaleContext } from '../context/locale-context';
 import UserBookList from './user-book-list';
 import './dashboard-style.less';
 
-const DashboardPage = (props) => {
+const DashboardPage = () => {
   const [books, setBooks] = useState([]);
   const localeContext = useContext(LocaleContext);
   const { textLoader, currentLocale } = localeContext;
