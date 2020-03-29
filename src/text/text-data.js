@@ -37,7 +37,7 @@ const textData = {
   },
   Log_In_Reason_Description: {
     en: 'For personalized experience, please log in.',
-    ko: '로그인을 하시면 개인화된 서비스를 이용하실 수 있습니다.'
+    ko: '로그인을 하시면 개인화된 서비스를 이용하실 수 있습니다.',
   },
   Book_Manage_Label: {
     en: 'Manage books',

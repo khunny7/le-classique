@@ -54,23 +54,19 @@ class BookRepository {
   static UploadBookFile(fileObj) {
     const newFileRef = storage().ref(fileObj.name);
 
-    return newFileRef.put(fileObj).then((snapshot) => {
-      return {
-        name: snapshot.metadata.name,
-        path: snapshot.metadata.fullPath,
-      };
-    });
+    return newFileRef.put(fileObj).then((snapshot) => ({
+      name: snapshot.metadata.name,
+      path: snapshot.metadata.fullPath,
+    }));
   }
 
   static UploadBookCoverFile(fileObj) {
     const newFileRef = storage().ref(`book-covers/${fileObj.name}`);
 
-    return newFileRef.put(fileObj).then((snapshot) => {
-      return {
-        name: snapshot.metadata.name,
-        path: snapshot.metadata.fullPath,
-      };
-    });
+    return newFileRef.put(fileObj).then((snapshot) => ({
+      name: snapshot.metadata.name,
+      path: snapshot.metadata.fullPath,
+    }));
   }
 
   static GetBookCoverFile(path) {

@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
-// import firebase from 'firebase/app';
-import { Button, Container, InputGroup, Image, Form, Row, Col } from 'react-bootstrap';
+import PropTypes from 'prop-types';
+import {
+  Button, Container, InputGroup, Form, Row, Col,
+} from 'react-bootstrap';
 import { FilePicker } from 'react-file-picker';
 import CoverImage from '../components/cover-image';
 import BookRepository from '../data/book-repository';
@@ -36,9 +38,10 @@ const BookEditor = (props) => {
   };
 
   const onDeleteBook = () => {
+    // eslint-disable-next-line
     if (confirm(`Are you sure, you want to delete book ${bookTitle} by ${bookAuthor}`)) {
       BookRepository.deleteBook(bookId).then(() => onBookSaved());
-    } 
+    }
   };
 
   const onSaveBook = () => {
@@ -170,6 +173,15 @@ const BookEditor = (props) => {
       </Form>
     </Container>
   );
+};
+
+BookEditor.propTypes = {
+  book: PropTypes.instanceOf(Book),
+  onBookSaved: PropTypes.func.isRequired,
+};
+
+BookEditor.defaultProps = {
+  book: null,
 };
 
 export default BookEditor;
