@@ -1,0 +1,32 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`BookListItemView -  1`] = `
+<div
+  className="book-list-item-container col-lg-2 col-md-3 col-4"
+>
+  <button
+    className="btn btn-primary"
+    disabled={false}
+    onClick={[Function]}
+    type="button"
+  >
+    <div
+      className="book-list-item-content"
+    >
+      <MockedCoverImage
+        coverPath=""
+      />
+      <p
+        className="book-title"
+      >
+        My story
+      </p>
+      <p
+        className="book-author"
+      >
+        Younghoon Gim
+      </p>
+    </div>
+  </button>
+</div>
+`;
