@@ -1,17 +1,15 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useHistory } from 'react-router-dom';
-import { UserContext } from '../context/user-context';
-import { LocaleContext } from '../context/locale-context';
+import { useUserContext } from '../context/user-context';
+import { useLocaleContext } from '../context/locale-context';
 import BookRepository from '../data/book-repository';
 import UserRepository from '../data/user-repository';
 import BookListView from './book-list-view';
 
 const UserBookList = () => {
   const [userBooks, setUserBooks] = useState([]);
-  const userContext = useContext(UserContext);
-  const { currentUser } = userContext;
-  const localeContext = useContext(LocaleContext);
-  const { textLoader, currentLocale } = localeContext;
+  const { currentUser } = useUserContext();
+  const { textLoader, currentLocale } = useLocaleContext();
   const history = useHistory();
 
   const onBookSelected = (bookId) => {
