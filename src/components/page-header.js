@@ -7,127 +7,106 @@ import {
   NavDropdown,
 } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import { withUserContext } from '../context/user-context';
-import { withLocaleContext } from '../context/locale-context';
+import { useUserContext } from '../context/user-context';
+import { useLocaleContext } from '../context/locale-context';
 import './page-header.less';
 
-class PageHader extends React.Component {
-  constructor(props, context) {
-    super(props, context);
+const PageHeader = (props) => {
+  const {
+    mode, onReaderSetting,
+  } = props;
+  const { currentUser, signOut } = useUserContext();
+  const { textLoader, setCurrentLocale, currentLocale } = useLocaleContext();
 
-    this.state = {};
-  }
+  const onSignOut = () => {
+    signOut();
+  };
 
-  render() {
-    const {
-      mode, onReaderSetting, userContext, localeContext,
-    } = this.props;
-    const { currentUser, signOut } = userContext;
-    const { textLoader, setCurrentLocale, currentLocale } = localeContext;
-
-    const onSignOut = () => {
-      signOut();
-    };
-
-    return (
-      <div className="page-header-container">
-        <Navbar className="nav-bar" collapseOnSelect expand="md" bg="dark" variant="dark">
-          <Navbar.Brand href="/">Le-classique</Navbar.Brand>
-          <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-          <Navbar.Collapse id="responsive-navbar-nav">
-            <Nav className="mr-auto">
-              <Link to="/" className="nav-link" lang={currentLocale}>
-                {textLoader('Home_Label')}
-              </Link>
-              <Link to="/books-manager" className="nav-link" lang={currentLocale}>
-                {textLoader('Book_Manage_Label')}
-              </Link>
+  return (
+    <div className="page-header-container">
+      <Navbar className="nav-bar" collapseOnSelect expand="md" bg="dark" variant="dark">
+        <Navbar.Brand href="/">Le-classique</Navbar.Brand>
+        <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+        <Navbar.Collapse id="responsive-navbar-nav">
+          <Nav className="mr-auto">
+            <Link to="/" className="nav-link" lang={currentLocale}>
+              {textLoader('Home_Label')}
+            </Link>
+            <Link to="/books-manager" className="nav-link" lang={currentLocale}>
+              {textLoader('Book_Manage_Label')}
+            </Link>
+            {
+              mode === 'book-reader'
+              && (
+                <Button
+                  lang={currentLocale}
+                  variant="outline-secondary"
+                  onClick={() => onReaderSetting(true)}
+                >
+                  {textLoader('Reader_Setting_Button')}
+                </Button>
+              )
+            }
+            <Button
+              lang={currentLocale}
+              variant="outline-secondary"
+              onClick={() => setCurrentLocale(currentLocale === 'en' ? 'ko' : 'en')}
+            >
               {
-                mode === 'book-reader'
-                && (
-                  <Button
-                    lang={currentLocale}
-                    variant="outline-secondary"
-                    onClick={() => onReaderSetting(true)}
-                  >
-                    {textLoader('Reader_Setting_Button')}
-                  </Button>
-                )
-              }
-              <Button
-                lang={currentLocale}
-                variant="outline-secondary"
-                onClick={() => setCurrentLocale(currentLocale === 'en' ? 'ko' : 'en')}
-              >
-                {
-                  currentLocale === 'en'
-                  && '한국어'
-                }
-                {
-                  currentLocale === 'ko'
-                  && 'English'
-                }
-              </Button>
-            </Nav>
-            <Nav>
-              {
-                currentUser && (
-                  <img
-                    alt="user profile"
-                    src={currentUser.photoURL}
-                    width={40}
-                    height={40}
-                  />
-                )
+                currentLocale === 'en'
+                && '한국어'
               }
               {
-                currentUser && (
-                  <NavDropdown title={currentUser.displayName} id="collasible-nav-dropdown">
-                    <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
-                    <NavDropdown.Divider />
-                    <NavDropdown.Item href="#action/3.4">Separated link</NavDropdown.Item>
-                    <NavDropdown.Item onClick={onSignOut} lang={currentLocale}>
-                      {textLoader('Log_Out_Label')}
-                    </NavDropdown.Item>
-                  </NavDropdown>
-                )
+                currentLocale === 'ko'
+                && 'English'
               }
-              {
-                !currentUser && (
-                  <Link to="/login" className="nav-link" lang={currentLocale}>
-                    {textLoader('Log_In_Label')}
-                  </Link>
-                )
-              }
-            </Nav>
-          </Navbar.Collapse>
-        </Navbar>
-      </div>
-    );
-  }
-}
-
-PageHader.propTypes = {
-  mode: PropTypes.string,
-  onReaderSetting: PropTypes.func,
-  localeContext: PropTypes.shape({
-    textLoader: PropTypes.func.isRequired,
-    setCurrentLocale: PropTypes.func.isRequired,
-    currentLocale: PropTypes.string.isRequired,
-  }).isRequired,
-  userContext: PropTypes.shape({
-    currentUser: PropTypes.shape({
-      uid: PropTypes.string.isRequired,
-      photoURL: PropTypes.string.isRequired,
-      displayName: PropTypes.string.isRequired,
-    }),
-    signOut: PropTypes.func.isRequired,
-  }).isRequired,
+            </Button>
+          </Nav>
+          <Nav>
+            {
+              currentUser && (
+                <img
+                  alt="user profile"
+                  src={currentUser.photoURL}
+                  width={40}
+                  height={40}
+                />
+              )
+            }
+            {
+              currentUser && (
+                <NavDropdown title={currentUser.displayName ? currentUser.displayName : ''} id="collasible-nav-dropdown">
+                  <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
+                  <NavDropdown.Divider />
+                  <NavDropdown.Item href="#action/3.4">Separated link</NavDropdown.Item>
+                  <NavDropdown.Item onClick={onSignOut} lang={currentLocale}>
+                    {textLoader('Log_Out_Label')}
+                  </NavDropdown.Item>
+                </NavDropdown>
+              )
+            }
+            {
+              !currentUser && (
+                <Link to="/login" className="nav-link" lang={currentLocale}>
+                  {textLoader('Log_In_Label')}
+                </Link>
+              )
+            }
+          </Nav>
+        </Navbar.Collapse>
+      </Navbar>
+    </div>
+  );
 };
 
-PageHader.defaultProps = {
+PageHeader.propTypes = {
+  mode: PropTypes.string,
+  onReaderSetting: PropTypes.func,
+};
+
+PageHeader.defaultProps = {
   mode: 'default',
   onReaderSetting: () => { },
 };
 
-export default withLocaleContext(withUserContext(PageHader));
+export default PageHeader;

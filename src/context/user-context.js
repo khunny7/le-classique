@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import firebase from 'firebase/app';
 import 'firebase/auth';
@@ -53,6 +53,8 @@ class UserContextProvider extends React.Component {
   }
 }
 
+const useUserContext = () => useContext(UserContext);
+
 UserContextProvider.propTypes = {
   children: PropTypes.element.isRequired,
 };
@@ -65,4 +67,6 @@ const withUserContext = (Component) => (
   )
 );
 
-export { UserContext, UserContextProvider, withUserContext };
+export {
+  UserContext, UserContextProvider, withUserContext, useUserContext,
+};

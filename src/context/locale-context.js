@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import PropTypes from 'prop-types';
 import GetLocaleTextLoader from '../text/text-loader';
 
@@ -32,9 +32,12 @@ const withLocaleContext = (Component) => (
   )
 );
 
+const useLocaleContext = () => useContext(LocaleContext);
 
 LocaleContextProvider.propTypes = {
   children: PropTypes.element.isRequired,
 };
 
-export { LocaleContext, LocaleContextProvider, withLocaleContext };
+export {
+  LocaleContext, LocaleContextProvider, withLocaleContext, useLocaleContext,
+};

@@ -1,0 +1,70 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<DashboardPage /> - snapshots DashboardPage  1`] = `
+<div
+  className="dashboard-container"
+>
+  <MockedPageHeader />
+  <div
+    className="jumbotron jumbotron"
+  >
+    <div
+      className="welcome-user"
+    >
+      <div
+        className="welcome-user-text"
+      >
+        <h1
+          className="user-name"
+          lang="en"
+        >
+          Hello_Users_Label
+        </h1>
+        <p
+          className="app-description"
+          lang="en"
+        >
+          App_Description_Label
+        </p>
+        <button
+          className="browsing-btn btn btn-primary"
+          disabled={false}
+          type="button"
+        >
+          Book_Bookshelf_Button_Label
+           ⯆
+        </button>
+      </div>
+    </div>
+  </div>
+  <div
+    className="container"
+  >
+    <p
+      lang="en"
+    >
+      Books_You_Read
+    </p>
+    <div
+      className="book-list-view"
+    />
+  </div>
+  <div
+    className="container"
+  >
+    <div
+      className="row"
+    >
+      <div
+        className="col-md-12"
+        lang="en"
+      >
+        Books_All_Library
+      </div>
+    </div>
+    <div
+      className="book-list-view"
+    />
+  </div>
+</div>
+`;

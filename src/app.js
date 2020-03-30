@@ -12,42 +12,32 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { UserContextProvider } from './context/user-context';
 import { LocaleContextProvider } from './context/locale-context';
 
-class App extends React.Component {
-  constructor(props, context) {
-    super(props, context);
-
-    this.state = {};
-  }
-
-  render() {
-    return (
-      <UserContextProvider>
-        <LocaleContextProvider>
-          <Router>
-            <Switch>
-              <Route exact path="/">
-                <DashboardPage />
-              </Route>
-              <Route path="/users">
-                <div>
-                  Users
-                </div>
-              </Route>
-              <Route path="/login">
-                <SignInPage />
-              </Route>
-              <Route path="/book">
-                <BookReaderPage />
-              </Route>
-              <Route path="/books-manager">
-                <BooksManagerPage />
-              </Route>
-            </Switch>
-          </Router>
-        </LocaleContextProvider>
-      </UserContextProvider>
-    );
-  }
-}
+const App = () => (
+  <UserContextProvider>
+    <LocaleContextProvider>
+      <Router>
+        <Switch>
+          <Route exact path="/">
+            <DashboardPage />
+          </Route>
+          <Route path="/users">
+            <div>
+              Users
+            </div>
+          </Route>
+          <Route path="/login">
+            <SignInPage />
+          </Route>
+          <Route path="/book">
+            <BookReaderPage />
+          </Route>
+          <Route path="/books-manager">
+            <BooksManagerPage />
+          </Route>
+        </Switch>
+      </Router>
+    </LocaleContextProvider>
+  </UserContextProvider>
+);
 
 export default App;
