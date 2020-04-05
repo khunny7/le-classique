@@ -1,7 +1,11 @@
 module.exports = {
   launch: {
     headless: false,
-    slowMo: process.env.SLOWMO ? process.env.SLOWMO : 0,
+    slowMo: 1000,
     devtools: true,
+  },
+  server: {
+    command: 'http-server',
+    port: 8080,
   },
 };
