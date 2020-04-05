@@ -1,7 +1,7 @@
 import 'core-js/stable';
 import 'regenerator-runtime/runtime';
 
-const timeout = process.env.SLOWMO ? 30000 : 10000;
+const timeout = process.env.SLOWMO ? 60000 : 30000;
 
 beforeAll(async () => {
   await page.setViewport({
@@ -17,14 +17,18 @@ describe('Dashboard page navigation', () => {
     const title = await page.title();
     expect(title).toBe('Getting Started 2');
 
-    await page.waitForSelector('.jumbotron .welcome-user');
-    const welcomeUserContent = await page.evaluate()
-    $eval('.jumbotron > .welcome-user', (el) => {
-      console.log(el);
-      return el.value;
-    });
-    expect(welcomeUserContent).toBe('Hello, users!');
+    const welcomeUser = await page.$('.jumbotron .welcome-user');
+    const welcomeUserContent = await page.evaluate(welcomeUser => welcomeUser.innerText, welcomeUser);
 
-    // console.log('expect is done');
+    expect(welcomeUserContent).toMatch('Hello, users!');
+
+    await page.click('.browsing-btn');
+
+    // Since user is not logged in, users should see the please log in 
+    const userNotLoggedIn = await page.$('.user-book-list-container .no-user-logged-in');
+    await page.hover('.user-book-list-container .no-user-logged-in');
+    const userNotLoggedInContent = await page.evaluate(userNotLoggedIn => userNotLoggedIn.innerText, userNotLoggedIn);
+
+    expect(userNotLoggedInContent).toMatch('For personalized experience, please log in.');
   }, timeout);
 });

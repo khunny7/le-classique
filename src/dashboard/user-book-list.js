@@ -50,7 +50,7 @@ const UserBookList = () => {
       {
         !currentUser && (
           <>
-            <div>{textLoader('Log_In_Reason_Description')}</div>
+            <div className="no-user-logged-in">{textLoader('Log_In_Reason_Description')}</div>
             <Link to="/login" lang={currentLocale}>
               {textLoader('Log_In_Label')}
             </Link>

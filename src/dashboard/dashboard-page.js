@@ -46,7 +46,7 @@ const DashboardPage = () => {
           </div>
         </div>
       </Jumbotron>
-      <Container>
+      <Container className="user-book-list-container">
         <UserBookList />
       </Container>
       <Container>
