@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import {
-  Jumbotron, Container, Row, Col, Button,
+  Jumbotron, Container, Row, Col
 } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
 import BookListView from './book-list-view';
@@ -9,6 +9,7 @@ import PageHeader from '../components/page-header';
 import { useLocaleContext } from '../context/locale-context';
 import UserBookList from './user-book-list';
 import './dashboard-style.less';
+import Scrollchor from 'react-scrollchor';
 
 const DashboardPage = () => {
   const [books, setBooks] = useState([]);
@@ -38,10 +39,10 @@ const DashboardPage = () => {
             <p className="app-description" lang={currentLocale}>
               {textLoader('App_Description_Label')}
             </p>
-            <Button className="browsing-btn">
+            <Scrollchor to="#booklist" className="browsing-btn">
               {textLoader('Book_Bookshelf_Button_Label')}
               &nbsp;&#11206;
-            </Button>
+            </Scrollchor>
           </div>
         </div>
       </Jumbotron>
