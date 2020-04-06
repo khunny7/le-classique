@@ -36,7 +36,8 @@ const UserBookList = () => {
         currentUser
         && (
           <>
-            <p lang={currentLocale}>
+            <p id="booklist"
+              lang={currentLocale}>
               {textLoader('Books_You_Read')}
             </p>
             <BookListView
