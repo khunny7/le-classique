@@ -13,8 +13,9 @@
     ]
   },
   "scripts": {
-    "test": "jest",
+    "test": "webpack && jest",
     "start": "webpack-dev-server --open --mode development",
+    "preview": "webpack && http-server",
     "deploy": "firebase deploy",
     "build": "webpack",
     "eslint": "./node_modules/.bin/eslint ./src --fix"
@@ -45,6 +46,7 @@
     "eslint-plugin-react": "^7.18.3",
     "eslint-plugin-react-hooks": "^1.7.0",
     "file-loader": "^4.2.0",
+    "http-server": "^0.12.1",
     "jest": "^25.2.6",
     "jest-puppeteer": "^4.4.0",
     "jest-transform-stub": "^2.0.0",
