@@ -31,12 +31,12 @@ const UserBookList = () => {
   }, [currentUser]);
 
   return (
-    <>
+    <div id="booklist">
       {
         currentUser
         && (
           <>
-            <p id="booklist"
+            <p
               lang={currentLocale}>
               {textLoader('Books_You_Read')}
             </p>
@@ -57,7 +57,7 @@ const UserBookList = () => {
           </>
         )
       }
-    </>
+    </div>
   );
 };
 
