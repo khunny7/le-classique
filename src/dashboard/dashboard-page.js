@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import {
-  Jumbotron, Container, Row, Col
+  Jumbotron,
 } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
+import Scrollchor from 'react-scrollchor';
 import BookListView from './book-list-view';
 import BookRepository from '../data/book-repository';
 import PageHeader from '../components/page-header';
 import { useLocaleContext } from '../context/locale-context';
 import UserBookList from './user-book-list';
 import './dashboard-style.less';
-import Scrollchor from 'react-scrollchor';
 
 const DashboardPage = () => {
   const [books, setBooks] = useState([]);
@@ -46,20 +46,16 @@ const DashboardPage = () => {
           </div>
         </div>
       </Jumbotron>
-      <Container className="user-book-list-container">
+      <div className="book-shelf-container">
         <UserBookList />
-      </Container>
-      <Container>
-        <Row>
-          <Col md={12} lang={currentLocale}>
-            {textLoader('Books_All_Library')}
-          </Col>
-        </Row>
+        <h2 lang={currentLocale}>
+          {textLoader('Books_All_Library')}
+        </h2>
         <BookListView
           books={books}
           onBookSelected={onBookSelected}
         />
-      </Container>
+      </div>
     </div>
   );
 };

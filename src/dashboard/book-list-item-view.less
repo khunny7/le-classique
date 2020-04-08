@@ -1,0 +1,44 @@
+@import "../color.less";
+
+.book-list-item-container {
+    position: relative;
+    width: 100%;
+    padding-right: 15px;
+    padding-left: 15px;
+    flex: 0 0 33.3333%;
+    max-width: 33.3333%;
+    .book-list-item-btn{
+        background-color: transparent;
+        border: none;
+    }
+    a {
+        &:hover {
+          color: unset;
+          text-decoration: unset;
+        }
+      }
+  
+    //   .book-list-item-content {
+    //     border: solid 1px;
+    //     border-radius: 0.5rem;
+    //     height: 20rem;
+    //   }
+}
+
+/* Media Queries
+------------------------------------*/
+
+@media screen and (min-width: 1201px) {
+    .book-list-item-container {
+        flex: 0 0 20%;
+        max-width: 20%;
+    }
+}
+
+@media screen and (min-width: 768px) and (max-width: 1200px){
+    .book-list-item-container {
+        flex: 0 0 25%;
+        max-width: 25%;
+    }
+}
+  

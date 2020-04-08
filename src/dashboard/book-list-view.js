@@ -22,12 +22,12 @@ const BookListView = (props/* , context */) => {
   );
 
   return (
-    <div className="book-list-view">
+    <>
       {
         books.length > 0
         && renderBookList()
       }
-    </div>
+    </>
   );
 };
 

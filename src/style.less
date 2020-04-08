@@ -1,3 +1,5 @@
+ @import './color.less';
+ 
  @font-face {
    font-family: 'RobotoSlab';
    src: url('./fonts/RobotoSlab-Regular.ttf') format('ttf');
@@ -15,19 +17,20 @@
  html {
    width: 100%;
    height: 100%;
-   font-size: 16px;
+   font-size: 16px;   
 
-  //  h1 {
-  //    font-size: 7vw;
-  //  }
-
-   h2,
-   h3 {
-     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-   }
+  h2 {
+    font-size: 1.5rem;
+  }
 
    h1[lang=en] {
      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+   }
+
+   
+   h2[lang=en],
+   h3[lang=en] {
+    font-family: 'RobotoSlab', Georgia, serif;
    }
 
    h1[lang=ko] {
@@ -37,7 +40,8 @@
    body {
      width: 100%;
      height: 100%;
-     color: #010101;
+     color: @pureWhite;
+     background-color: @darkThemeBackground;
      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
    }
  }
@@ -52,7 +56,7 @@
 
 @media screen and (min-width: 1301px) {
   h1 {
-    font-size: 90px!important;
+    font-size: 5.7rem!important;
   }
 }
 
