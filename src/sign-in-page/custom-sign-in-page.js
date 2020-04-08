@@ -25,9 +25,11 @@ const SignInPage = () => {
   };
 
   return (
-    <Button onClick={() => signInWithGoogle()}>
-      Sign in with Google Account
-    </Button>
+    <div className="sign-in-page">
+      <Button className="google-sign-in-button" onClick={() => signInWithGoogle()}>
+        Sign in with Google Account
+      </Button>
+    </div>
   );
 };
 
