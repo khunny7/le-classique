@@ -1,8 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Col, Button } from 'react-bootstrap';
+import { Button } from 'react-bootstrap';
 import { Book } from '../model/book';
 import CoverImage from '../components/cover-image';
+import './book-list-item-view.less';
 
 const BookListItemView = (props) => {
   const { book, onBookSelected } = props;
@@ -16,16 +17,16 @@ const BookListItemView = (props) => {
   );
 
   return (
-    <Col
+    <div
       className="book-list-item-container"
-      xs={4}
-      md={3}
-      lg={2}
     >
-      <Button onClick={() => onBookSelected(book.id)}>
+      <Button
+        className="book-list-item-btn"
+        onClick={() => onBookSelected(book.id)}
+      >
         <BookListItemContent />
       </Button>
-    </Col>
+    </div>
   );
 };
 
