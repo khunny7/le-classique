@@ -26,9 +26,9 @@ describe('Dashboard page navigation', () => {
     await page.click('.browsing-btn');
 
     // Since user is not logged in, users should see the please log in
-    await page.waitForSelector('.user-book-list-container .no-user-logged-in');
-    const userNotLoggedIn = await page.$('.user-book-list-container .no-user-logged-in');
-    await page.hover('.user-book-list-container .no-user-logged-in');
+    await page.waitForSelector('.book-shelf-container .no-user-logged-in');
+    const userNotLoggedIn = await page.$('.book-shelf-container .no-user-logged-in');
+    await page.hover('.book-shelf-container .no-user-logged-in');
     const userNotLoggedInContent = await page.evaluate(userNotLoggedIn => userNotLoggedIn.innerText, userNotLoggedIn);
 
     expect(userNotLoggedInContent).toMatch('For personalized experience, please log in.');
