@@ -2,10 +2,10 @@
 
 exports[`BookListItemView -  1`] = `
 <div
-  className="book-list-item-container col-lg-2 col-md-3 col-4"
+  className="book-list-item-container"
 >
   <button
-    className="btn btn-primary"
+    className="book-list-item-btn btn btn-primary"
     disabled={false}
     onClick={[Function]}
     type="button"
