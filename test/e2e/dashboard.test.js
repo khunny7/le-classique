@@ -4,12 +4,12 @@ import 'regenerator-runtime/runtime';
 const timeout = process.env.SLOWMO ? 60000 : 30000;
 
 beforeAll(async () => {
+  await page.goto('http://localhost:8080', { waitUntil: 'domcontentloaded' });
   await page.setViewport({
     width: 1440,
     height: 800,
     deviceScaleFactor: 1,
   });
-  await page.goto('http://localhost:8080', { waitUntil: 'domcontentloaded' });
 });
 
 describe('Dashboard page navigation', () => {
