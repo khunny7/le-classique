@@ -1,10 +1,11 @@
 import 'core-js/stable';
 import 'regenerator-runtime/runtime';
+import PageElement from './tapi/page-element';
 
-const timeout = process.env.SLOWMO ? 60000 : 30000;
+const timeout = 60000;
 
 const signInCredential = {
-  id: 'piano8283test',
+  id: 'piano8283test@gmail.com',
   password: 'Asdlkj96#',
 };
 
@@ -31,7 +32,35 @@ describe('Log-in and Log-out scenario', () => {
     ]);
 
     // wait for the google sign in button to show up
-    const googleSignInButtonSelector = '.sign-in-page .google-sign-in-button';
-    await page.waitForSelector('.sign-in-page .google-sign-in-button');
+    const googleSignInButton = new PageElement(page, '.sign-in-page .google-sign-in-button');
+
+    // verify that the popup window for the sign in shows up
+    const [popup] = await Promise.all([
+      new Promise(resolve => page.once('popup', resolve)),
+      googleSignInButton.clickAsync(),
+    ]);
+
+    await popup.waitForSelector('input[type="email"]');
+    await popup.type('input[type="email"]', signInCredential.id);
+
+    await Promise.all([
+      popup.waitForNavigation(),
+      popup.click('div[role="button"]#identifierNext'),
+    ]);
+
+    await popup.waitForSelector('input[type="password"]');
+    // wait for one second before typing
+    await popup.waitFor(1000);
+    await popup.type('input[type="password"]', signInCredential.password);
+
+    await Promise.all([
+      page.waitForNavigation(),
+      popup.click('div[role="button"]#passwordNext'),
+    ]);
+
+    // Since the user is signed in, user dropdown should be shown
+    const testUserDropdown = new PageElement(page, '.current-user-dropdown a.dropdown-toggle');
+    const userName = await testUserDropdown.getTextAsync();
+    expect(userName).toBe('Test User');
   }, timeout);
 });

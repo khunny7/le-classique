@@ -1,5 +1,6 @@
 import 'core-js/stable';
 import 'regenerator-runtime/runtime';
+import PageElement from './tapi/page-element';
 
 const timeout = process.env.SLOWMO ? 60000 : 30000;
 
@@ -17,19 +18,15 @@ describe('Dashboard page navigation', () => {
     const title = await page.title();
     expect(title).toBe('Getting Started 2');
 
-    await page.waitForSelector('.jumbotron .welcome-user');
-    const welcomeUser = await page.$('.jumbotron .welcome-user');
-    const welcomeUserContent = await page.evaluate(welcomeUser => welcomeUser.innerText, welcomeUser);
-
+    const welcomeUser = new PageElement(page, '.jumbotron .welcome-user');
+    const welcomeUserContent = await welcomeUser.getTextAsync();
     expect(welcomeUserContent).toMatch('Hello, users!');
 
     await page.click('.browsing-btn');
 
     // Since user is not logged in, users should see the please log in
-    await page.waitForSelector('.book-shelf-container .no-user-logged-in');
-    const userNotLoggedIn = await page.$('.book-shelf-container .no-user-logged-in');
-    await page.hover('.book-shelf-container .no-user-logged-in');
-    const userNotLoggedInContent = await page.evaluate(userNotLoggedIn => userNotLoggedIn.innerText, userNotLoggedIn);
+    const userNotLoggedInElm = new PageElement(page, '.book-shelf-container .no-user-logged-in');
+    const userNotLoggedInContent = await userNotLoggedInElm.getTextAsync();
 
     expect(userNotLoggedInContent).toMatch('For personalized experience, please log in.');
 

@@ -13,7 +13,10 @@
     "page": true,
     "browser": true,
     "context": true,
-    "jestPuppeteer": true
+    "jestPuppeteer": true,
+    "describe": true,
+    "test": true,
+    "expect": true
   },
   "parser": "babel-eslint",
   "parserOptions": {
