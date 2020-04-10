@@ -76,7 +76,7 @@ const BookEditor = (props) => {
                 <FilePicker
                   extensions={['epub']}
                   onChange={onBookFilePicked}
-                  onError={(errMsg) => console.error(errMsg)}
+                  onError={(errMsg) => throw errMsg}
                 >
                   <Button variant="outline-secondary">
                     Upload EPUB
@@ -105,7 +105,7 @@ const BookEditor = (props) => {
                 <FilePicker
                   extensions={['jpg', 'jpeg', 'png']}
                   onChange={onBookCoverFilePicked}
-                  onError={(errMsg) => console.error(errMsg)}
+                  onError={(errMsg) => throw errMsg}
                 >
                   <Button variant="outline-secondary">
                     Upload Book Cover

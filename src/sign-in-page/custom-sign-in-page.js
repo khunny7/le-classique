@@ -19,8 +19,8 @@ const SignInPage = () => {
       const errorCode = error.code;
       const errorMessage = error.message;
 
-      console.error(errorCode);
-      console.error(errorMessage);
+      // eslint-disable-next-line
+      console.warn(`error: ${errorCode}, msg: ${errorMessage}`);
     });
   };
 

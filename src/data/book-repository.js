@@ -31,11 +31,15 @@ class BookRepository {
   }
 
   static getBooks(bookIds) {
-    return bookCollection()
-      .where(firebase.firestore.FieldPath.documentId(), 'in', bookIds)
-      .withConverter(bookConverter)
-      .get()
-      .then((qs) => qs.docs.map((doc) => doc.data()));
+    if (bookIds && bookIds.length > 0) {
+      return bookCollection()
+        .where(firebase.firestore.FieldPath.documentId(), 'in', bookIds)
+        .withConverter(bookConverter)
+        .get()
+        .then((qs) => qs.docs.map((doc) => doc.data()));
+    }
+
+    return Promise.resolve([]);
   }
 
   static saveBook(bookObj) {

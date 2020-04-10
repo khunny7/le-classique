@@ -29,10 +29,10 @@ const PageHeader = (props) => {
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="mr-auto">
-            <Link to="/" className="nav-link" lang={currentLocale}>
+            <Link to="/" className="to-home-link nav-link" lang={currentLocale}>
               {textLoader('Home_Label')}
             </Link>
-            <Link to="/books-manager" className="nav-link" lang={currentLocale}>
+            <Link to="/books-manager" className="books-manager-link nav-link" lang={currentLocale}>
               {textLoader('Book_Manage_Label')}
             </Link>
             {
@@ -48,6 +48,7 @@ const PageHeader = (props) => {
               )
             }
             <Button
+              className="change-locale-button"
               lang={currentLocale}
               variant="outline-secondary"
               onClick={() => setCurrentLocale(currentLocale === 'en' ? 'ko' : 'en')}
@@ -75,7 +76,11 @@ const PageHeader = (props) => {
             }
             {
               currentUser && (
-                <NavDropdown title={currentUser.displayName ? currentUser.displayName : ''} id="collasible-nav-dropdown">
+                <NavDropdown
+                  className="current-user-dropdown"
+                  title={currentUser.displayName ? currentUser.displayName : ''}
+                  id="collasible-nav-dropdown"
+                >
                   <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
                   <NavDropdown.Divider />
                   <NavDropdown.Item href="#action/3.4">Separated link</NavDropdown.Item>
