@@ -46,6 +46,7 @@
     "eslint-plugin-react": "^7.18.3",
     "eslint-plugin-react-hooks": "^1.7.0",
     "file-loader": "^4.2.0",
+    "firebase-cli": "^1.2.0",
     "http-server": "^0.12.1",
     "jest": "^25.2.6",
     "jest-puppeteer": "^4.4.0",

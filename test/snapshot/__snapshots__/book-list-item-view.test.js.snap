@@ -8,6 +8,11 @@ exports[`BookListItemView -  1`] = `
     className="book-list-item-btn btn btn-primary"
     disabled={false}
     onClick={[Function]}
+    style={
+      Object {
+        "width": "100%",
+      }
+    }
     type="button"
   >
     <div
@@ -16,16 +21,20 @@ exports[`BookListItemView -  1`] = `
       <MockedCoverImage
         coverPath=""
       />
-      <p
-        className="book-title"
+      <div
+        className="book-detail"
       >
-        My story
-      </p>
-      <p
-        className="book-author"
-      >
-        Younghoon Gim
-      </p>
+        <p
+          className="book-title"
+        >
+          My story
+        </p>
+        <p
+          className="book-author"
+        >
+          Younghoon Gim
+        </p>
+      </div>
     </div>
   </button>
 </div>

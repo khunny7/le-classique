@@ -1,23 +1,48 @@
 @import "../color.less";
 
 .book-list-item-container {
-    position: relative;
-    width: 100%;
-    padding-right: 15px;
-    padding-left: 15px;
+    position: relative;    
+    text-align: center;
     flex: 0 0 33.3333%;
     max-width: 33.3333%;
-    .book-list-item-btn{
+    .book-list-item-btn.btn-primary:not(:disabled):not(.disabled) {
         background-color: transparent;
         border: none;
-    }
-    a {
-        &:hover {
-          color: unset;
-          text-decoration: unset;
+        width: 100%;
+        &:focus{
+            background-color: transparent;
+            text-decoration: unset;
+            box-shadow: none;
+            border: none;
         }
-      }
-  
+
+        .book-list-item-content {
+            .book-detail {
+                margin-top: 1rem;
+                .book-title {
+                    width: 100%;
+                    font-size: 1rem;
+                    text-overflow: ellipsis;
+                    overflow: hidden;
+                    font-weight: bold;
+                    line-height: 20px;
+                    padding-top: 4px;
+                    margin: 0;
+                }
+                .book-author {
+                    font-size: 0.9rem;
+                    color: @gray;
+                    padding-top: 1px;
+                    margin: 0;           
+                } 
+            }                          
+        }
+    }
+    .btn {
+        padding: 0;
+    }
+    
+    
     //   .book-list-item-content {
     //     border: solid 1px;
     //     border-radius: 0.5rem;
@@ -32,6 +57,7 @@
     .book-list-item-container {
         flex: 0 0 20%;
         max-width: 20%;
+        height: 20rem;
     }
 }
 
@@ -39,6 +65,7 @@
     .book-list-item-container {
         flex: 0 0 25%;
         max-width: 25%;
+        height: 20rem;
     }
 }
   

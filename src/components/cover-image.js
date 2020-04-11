@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { Image } from 'react-bootstrap';
 import BookRepository from '../data/book-repository';
+import './cover-image.less';
 
 const CoverImage = (props) => {
   const { coverPath } = props;
@@ -14,7 +14,7 @@ const CoverImage = (props) => {
   }, [coverPath]);
 
   return (
-    <Image src={coverUrl} fluid />
+    <img src={coverUrl} className="book-cover" />
   );
 };
 

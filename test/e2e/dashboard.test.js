@@ -2,7 +2,7 @@ import 'core-js/stable';
 import 'regenerator-runtime/runtime';
 import PageElement from './tapi/page-element';
 
-const timeout = process.env.SLOWMO ? 60000 : 30000;
+const timeout = 60000;
 
 beforeAll(async () => {
   await page.goto('http://localhost:8080', { waitUntil: 'domcontentloaded' });
