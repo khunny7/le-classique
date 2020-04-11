@@ -24,12 +24,6 @@ describe('Dashboard page navigation', () => {
 
     await page.click('.browsing-btn');
 
-    // Since user is not logged in, users should see the please log in
-    const userNotLoggedInElm = new PageElement(page, '.book-shelf-container .no-user-logged-in');
-    const userNotLoggedInContent = await userNotLoggedInElm.getTextAsync();
-
-    expect(userNotLoggedInContent).toMatch('For personalized experience, please log in.');
-
     // make sure that there are more than 1 book
     await page.waitForSelector('.book-list-item-container button');
     await page.hover('.book-list-item-container button');

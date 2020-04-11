@@ -4,6 +4,8 @@ import {
 } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
 import Scrollchor from 'react-scrollchor';
+import BlockUi from 'react-block-ui';
+import 'react-block-ui/style.css';
 import BookListView from './book-list-view';
 import BookRepository from '../data/book-repository';
 import PageHeader from '../components/page-header';
@@ -13,6 +15,7 @@ import './dashboard-style.less';
 
 const DashboardPage = () => {
   const [books, setBooks] = useState([]);
+  const [isAllBooksLoading, setIsAllBooksLoading] = useState(true);
   const localeContext = useLocaleContext();
   const { textLoader, currentLocale } = localeContext;
   const history = useHistory();
@@ -24,6 +27,7 @@ const DashboardPage = () => {
   useEffect(() => {
     BookRepository.get().then((result) => {
       setBooks(result);
+      setIsAllBooksLoading(false);
     });
   }, []);
 
@@ -51,10 +55,12 @@ const DashboardPage = () => {
         <h2 lang={currentLocale}>
           {textLoader('Books_All_Library')}
         </h2>
-        <BookListView
-          books={books}
-          onBookSelected={onBookSelected}
-        />
+        <BlockUi tag="div" blocking={isAllBooksLoading}>
+          <BookListView
+            books={books}
+            onBookSelected={onBookSelected}
+          />
+        </BlockUi>
       </div>
     </div>
   );
