@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Row } from 'react-bootstrap';
 import { Book } from '../model/book';
 import BookListItemView from './book-list-item-view';
+import './book-list-view.less';
 
 const BookListView = (props/* , context */) => {
   const { books, onBookSelected } = props;

@@ -11,8 +11,10 @@ const BookListItemView = (props) => {
   const BookListItemContent = () => (
     <div className="book-list-item-content">
       <CoverImage coverPath={book.cover} />
-      <p className="book-title">{book.title}</p>
-      <p className="book-author">{book.author}</p>
+      <div className="book-detail">
+        <p className="book-title">{book.title}</p>
+        <p className="book-author">{book.author}</p>
+      </div>
     </div>
   );
 
@@ -21,6 +23,7 @@ const BookListItemView = (props) => {
       className="book-list-item-container"
     >
       <Button
+        style={{ width: '100%' }}
         className="book-list-item-btn"
         onClick={() => onBookSelected(book.id)}
       >
