@@ -5,6 +5,7 @@
     text-align: center;
     flex: 0 0 33.3333%;
     max-width: 33.3333%;
+   
     .book-list-item-btn.btn-primary:not(:disabled):not(.disabled) {
         background-color: transparent;
         border: none;
@@ -17,6 +18,16 @@
         }
 
         .book-list-item-content {
+            .book-cover {
+                max-height: 15rem;
+                overflow: hidden;
+                img {
+                    transition: transform .5s ease;
+                }
+                &:hover img {
+                    transform: scale(1.1);
+                }
+            }                        
             .book-detail {
                 margin-top: 1rem;
                 .book-title {
@@ -41,8 +52,7 @@
     .btn {
         padding: 0;
     }
-    
-    
+        
     //   .book-list-item-content {
     //     border: solid 1px;
     //     border-radius: 0.5rem;

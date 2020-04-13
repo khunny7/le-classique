@@ -10,7 +10,9 @@ const BookListItemView = (props) => {
 
   const BookListItemContent = () => (
     <div className="book-list-item-content">
-      <CoverImage coverPath={book.cover} />
+      <div className="book-cover">
+        <CoverImage coverPath={book.cover} />
+      </div>
       <div className="book-detail">
         <p className="book-title">{book.title}</p>
         <p className="book-author">{book.author}</p>
