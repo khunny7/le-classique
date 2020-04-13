@@ -14,7 +14,11 @@ const CoverImage = (props) => {
   }, [coverPath]);
 
   return (
-    <img src={coverUrl} className="book-cover" />
+    <img
+      src={coverUrl}
+      className="book-cover"
+      alt="read a book"
+    />
   );
 };
 
