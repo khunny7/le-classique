@@ -18,9 +18,13 @@ exports[`BookListItemView -  1`] = `
     <div
       className="book-list-item-content"
     >
-      <MockedCoverImage
-        coverPath=""
-      />
+      <div
+        className="book-cover"
+      >
+        <MockedCoverImage
+          coverPath=""
+        />
+      </div>
       <div
         className="book-detail"
       >

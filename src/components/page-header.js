@@ -24,7 +24,7 @@ const PageHeader = (props) => {
 
   return (
     <div className="page-header-container">
-      <Navbar className="nav-bar" collapseOnSelect expand="md" bg="dark" variant="dark">
+      <Navbar className="nav-bar" collapseOnSelect expand="md" bg="dark" variant="dark" fixed="top">
         <Navbar.Brand href="/">Le-classique</Navbar.Brand>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">

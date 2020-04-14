@@ -5,13 +5,13 @@ import {
 import { useHistory } from 'react-router-dom';
 import Scrollchor from 'react-scrollchor';
 import BlockUi from 'react-block-ui';
-import 'react-block-ui/style.css';
 import BookListView from './book-list-view';
 import BookRepository from '../data/book-repository';
 import PageHeader from '../components/page-header';
 import { useLocaleContext } from '../context/locale-context';
 import UserBookList from './user-book-list';
 import './dashboard-style.less';
+import { cancellable } from '../utils/cancellable';
 
 const DashboardPage = () => {
   const [books, setBooks] = useState([]);
@@ -25,10 +25,13 @@ const DashboardPage = () => {
   };
 
   useEffect(() => {
-    BookRepository.get().then((result) => {
+    const [wrapped, cancel] = cancellable(BookRepository.get());
+    wrapped.then((result) => {
       setBooks(result);
       setIsAllBooksLoading(false);
-    });
+    }).catch((e) => { console.log(e); });
+
+    return cancel;
   }, []);
 
   return (
