@@ -8,18 +8,6 @@ import './book-list-item-view.less';
 const BookListItemView = (props) => {
   const { book, onBookSelected } = props;
 
-  const BookListItemContent = () => (
-    <div className="book-list-item-content">
-      <div className="book-cover">
-        <CoverImage coverPath={book.cover} />
-      </div>
-      <div className="book-detail">
-        <p className="book-title">{book.title}</p>
-        <p className="book-author">{book.author}</p>
-      </div>
-    </div>
-  );
-
   return (
     <div
       className="book-list-item-container"
@@ -29,7 +17,15 @@ const BookListItemView = (props) => {
         className="book-list-item-btn"
         onClick={() => onBookSelected(book.id)}
       >
-        <BookListItemContent />
+        <div className="book-list-item-content">
+          <div className="book-cover">
+            <CoverImage coverPath={book.cover} />
+          </div>
+          <div className="book-detail">
+            <p className="book-title">{book.title}</p>
+            <p className="book-author">{book.author}</p>
+          </div>
+        </div>
       </Button>
     </div>
   );

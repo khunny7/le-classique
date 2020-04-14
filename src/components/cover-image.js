@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import BookRepository from '../data/book-repository';
+import { cancellable } from '../utils/cancellable';
 import './cover-image.less';
 
 const CoverImage = (props) => {
@@ -8,9 +9,13 @@ const CoverImage = (props) => {
   const [coverUrl, setCoverUrl] = useState(null);
 
   useEffect(() => {
-    BookRepository.GetBookCoverFile(coverPath).then((url) => {
+    console.log(`use effect called path: ${coverPath} url: ${coverUrl}`);
+    const [wrapped, cancel] = cancellable(BookRepository.GetBookCoverFile(coverPath));
+    wrapped.then((url) => {
       setCoverUrl(url);
-    });
+    }).catch((e) => { console.log(e); });
+
+    return cancel;
   }, [coverPath]);
 
   return (
