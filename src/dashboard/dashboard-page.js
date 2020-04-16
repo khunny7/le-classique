@@ -46,13 +46,14 @@ const DashboardPage = () => {
             <p className="app-description" lang={currentLocale}>
               {textLoader('App_Description_Label')}
             </p>
-            <Scrollchor to="#booklist" className="browsing-btn">
+            <Scrollchor to="#pre-book-shelf" className="browsing-btn">
               {textLoader('Book_Bookshelf_Button_Label')}
               &nbsp;&#11206;
             </Scrollchor>
           </div>
         </div>
       </Jumbotron>
+      <div id="pre-book-shelf" />
       <div className="book-shelf-container">
         <UserBookList />
         <h2 lang={currentLocale}>

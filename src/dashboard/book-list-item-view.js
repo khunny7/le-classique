@@ -24,7 +24,6 @@ const BookListItemView = (props) => {
         )}
       >
         <Button
-          style={{ width: '100%' }}
           className="book-list-item-btn"
           onClick={() => onBookSelected(book.id)}
         >
