@@ -12,11 +12,6 @@ exports[`BookListItemView -  1`] = `
     onFocus={[Function]}
     onMouseOut={[Function]}
     onMouseOver={[Function]}
-    style={
-      Object {
-        "width": "100%",
-      }
-    }
     type="button"
   >
     <div
