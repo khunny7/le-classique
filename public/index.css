@@ -1,0 +1,117 @@
+html {
+    height: 100%;
+}
+
+body {
+    height: 100%;
+    margin: 0;
+}
+
+.loading-screen {
+    height: 100%;
+    background-color: #010101; 
+    text-align: center;
+    position: relative;   
+}
+
+@keyframes loading-pulse-1 {
+    0% {
+      top: 28.18799999999999px;
+      height: 204.624px
+    }
+
+    50% {
+      top: 66.55499999999999px;
+      height: 127.89px
+    }
+
+    100% {
+      top: 66.55499999999999px;
+      height: 127.89px
+    }
+  }
+
+  @keyframes loading-pulse-2 {
+    0% {
+      top: 37.779749999999986px;
+      height: 185.44050000000001px
+    }
+
+    50% {
+      top: 66.55499999999999px;
+      height: 127.89px
+    }
+
+    100% {
+      top: 66.55499999999999px;
+      height: 127.89px
+    }
+  }
+
+  @keyframes loading-pulse-3 {
+    0% {
+      top: 47.3715px;
+      height: 166.257px
+    }
+
+    50% {
+      top: 66.55499999999999px;
+      height: 127.89px
+    }
+
+    100% {
+      top: 66.55499999999999px;
+      height: 127.89px
+    }
+  }
+
+  .loading-pulse div:nth-child(1) {
+    left: 45.675px;
+    background: #a51c3e;
+    animation: loading-pulse-1 2.1739130434782608s cubic-bezier(0, 0.5, 0.5, 1) infinite;
+    animation-delay: -0.43478260869565216s
+  }
+
+  .loading-pulse div:nth-child(2) {
+    left: 110.925px;
+    background: #8578a5;
+    animation: loading-pulse-2 2.1739130434782608s cubic-bezier(0, 0.5, 0.5, 1) infinite;
+    animation-delay: -0.21739130434782608s
+  }
+
+  .loading-pulse div:nth-child(3) {
+    left: 176.17499999999998px;
+    background: #a51c3e;
+    animation: loading-pulse-3 2.1739130434782608s cubic-bezier(0, 0.5, 0.5, 1) infinite;
+    animation-delay: undefineds
+  }
+
+  .loading-pulse-container {
+    width: 15.63rem;
+    height: 12.5rem;    
+    position: absolute;
+    left: calc(50% - 7.8rem);
+    bottom: calc(50% - 6.25rem);
+    transform: translateZ(0) scale(1);
+    backface-visibility: hidden;
+    transform-origin: 0 0;
+  }
+
+  .loading-pulse {
+    height: 12rem;
+  }
+
+  .loading-pulse div {
+    position: absolute;
+    box-sizing: content-box;
+    width: 1.88rem;
+  }
+
+  .loading-text {
+    margin-top: 2rem;
+    color: white;
+    font-size: x-large;
+    width: 400px;
+    margin-left: -60px;
+    opacity: 60%;
+  }
