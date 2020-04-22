@@ -18,6 +18,16 @@ const CoverImage = (props) => {
     return cancel;
   }, [coverPath]);
 
+  if (coverUrl === null) {
+    return (
+      <div className="book-cover-placeholder">
+        <p className="book-cover-placeholder-text">
+          Image Loading...
+        </p>
+      </div>
+    );
+  }
+
   return (
     <img
       src={coverUrl}
