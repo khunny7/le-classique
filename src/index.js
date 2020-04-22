@@ -1,13 +1,8 @@
-import LoadingPageView from './loadingPage/loadingPageView';
-
-const loadingPageView = new LoadingPageView();
-
-loadingPageView.render();
-
 import('./app-loader').then(({ default: appLoader }) => {
   appLoader.load();
 
-  loadingPageView.remove();
+  const loadingScreen = document.querySelector('.loading-screen');
+  loadingScreen.remove();
 }).catch((e) => {
   throw (e);
 });
