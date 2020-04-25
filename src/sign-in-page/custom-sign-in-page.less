@@ -1,70 +1,78 @@
 @import '../color.less';
 
 .sign-in-page {
-    height: 100%;
-    background-color: @darkThemeBackground;
-    color: @pureWhite;
-    // .sign-in-main-contents{
-    //     width: 21.87rem;
-    //     margin: auto;
-    //     padding: 1rem;
-    //     border: 1px solid @pureWhite;
-    // }
-    .sign-in-section {
-        margin-bottom: 1.125rem;
-        .sign-in-section-nav {
-            width: 21.87rem;
-            margin: auto;
-            border: none;
-        }
-        .login-tab {
-            width: 21.87rem;
-            height: 16.5rem;
-            margin: auto;
-        }
-        .sign-in-container, .sign-up-container {
-            width: 21.87rem;
-            height: 16rem;
-            margin: auto;            
-            padding-bottom: 2rem;
-            border-bottom: 0.01rem solid;
-            .form-group{
-                margin-bottom: .8rem;
+  height: 100%;
+  background-color: @darkThemeBackground;
+  color: @pureWhite;
 
-            }
-            /*Simplify with maxin*/
-            .sign-in-or-up-button {
-                width: 100%;                
-                background-color: @pointColor;
-                opacity: 0.8;
-                transition: 0.3s;
-                display: inline-block;
-                text-decoration: none;
-                cursor: pointer;
-                border: 0; 
-            }
-            .sign-in-or-up-button:hover {
-                opacity: 1;
-            }
-        }
-    }    
-    .sign-in-with-button-container{
-        width: 21.87rem;
-        margin: 1.6rem auto 0;
-        /*Simplify with maxin*/
-        .sign-in-with-button {
-            width: 100%;
-            background-color: @pointColor;
-            opacity: 0.8;
-            transition: 0.3s;
-            display: inline-block;
-            text-decoration: none;
-            cursor: pointer;
-            border: 0;
-            margin-bottom: .8rem; 
-        }
-        .sign-in-with-button:hover {
-            opacity: 1;
-        }
+  // .sign-in-main-contents{
+  //     width: 21.87rem;
+  //     margin: auto;
+  //     padding: 1rem;
+  //     border: 1px solid @pureWhite;
+  // }
+  .sign-in-section {
+    padding-top: 3rem;
+    width: 24rem;
+    padding-left: 1rem;
+    padding-bottom: 3rem;
+    margin: 0 auto;
+
+    .sign-in-section-nav {
+      width: 21.87rem;
+      margin: auto;
+      border: none;
     }
+
+    .sign-in-container,
+    .sign-up-container {
+      width: 21.87rem;
+      height: 16rem;
+      padding-bottom: 2rem;
+      border-bottom: 0.01rem solid;
+
+      .form-group {
+        margin-bottom: .8rem;
+
+      }
+
+      /*Simplify with maxin*/
+      .sign-in-or-up-button {
+        width: 100%;
+        background-color: @pointColor;
+        opacity: 0.8;
+        transition: 0.3s;
+        display: inline-block;
+        text-decoration: none;
+        cursor: pointer;
+        border: 0;
+      }
+
+      .sign-in-or-up-button:hover {
+        opacity: 1;
+      }
+    }
+  }
+
+  .sign-in-with-button-container {
+    width: 21.87rem;
+    margin-top: 1.6rem;
+
+    /*Simplify with maxin*/
+    .sign-in-with-button {
+      width: 100%;
+      background-color: @pointColor;
+      opacity: 0.8;
+      transition: 0.3s;
+      display: inline-block;
+      text-decoration: none;
+      cursor: pointer;
+      border: 0;
+      margin-bottom: .8rem;
+    }
+
+    .sign-in-with-button:hover {
+      opacity: 1;
+    }
+  }
 }
