@@ -32,7 +32,7 @@ describe('Log-in and Log-out scenario', () => {
     ]);
 
     // wait for the google sign in button to show up
-    const googleSignInButton = new PageElement(page, '.sign-in-page .google-sign-in-button');
+    const googleSignInButton = new PageElement(page, '.log-in-page .log-in-with-button.google');
 
     // verify that the popup window for the sign in shows up
     const [popup] = await Promise.all([

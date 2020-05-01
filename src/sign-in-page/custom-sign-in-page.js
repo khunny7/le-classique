@@ -1,23 +1,21 @@
 import React, { useState } from 'react';
 import firebase from 'firebase/app';
 import {
-  Button, Form, Tabs, Tab,
+  Button, Form, Container, Row, Col,
 } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
+import './custom-sign-in-page.less';
 
 const SignInPage = () => {
   const history = useHistory();
   const [emailAddress, setEmailAddress] = useState('');
   const [password, setPassword] = useState('');
-  const [key, setKey] = useState('signIn');
+
 
   const signInWithGoogle = () => {
     const provider = new firebase.auth.GoogleAuthProvider();
     firebase.auth.languageCode = 'en';
     firebase.auth().signInWithPopup(provider).then((/* result */) => {
-      // The signed-in user info.
-      // const { user } = result;
-
       history.push('/');
     }).catch((error) => {
       // Handle Errors here.
@@ -29,17 +27,17 @@ const SignInPage = () => {
     });
   };
 
-  const signUpWithEmailAndPassword = () => {
-    firebase
-      .auth()
-      .createUserWithEmailAndPassword(emailAddress, password)
-      .then(() => {
-        history.push('/');
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-  };
+  // const signUpWithEmailAndPassword = () => {
+  //   firebase
+  //     .auth()
+  //     .createUserWithEmailAndPassword(emailAddress, password)
+  //     .then(() => {
+  //       history.push('/');
+  //     })
+  //     .catch((error) => {
+  //       console.error(error);
+  //     });
+  // };
 
   const signInWithEmailAndPassword = () => {
     firebase
@@ -55,57 +53,94 @@ const SignInPage = () => {
   };
 
   return (
-    <div className="sign-in-page">
-      <Tabs
-        id="sign-in-or-up"
-        activeKey={key}
-        onSelect={(k) => setKey(k)}
-      >
-        <Tab eventKey="signIn" title="Sign In">
-          <div className="sign-in-container">
-            <Form>
-              <Form.Group controlId="formBasicEmail">
-                <Form.Label>Email address</Form.Label>
-                <Form.Control type="email" value={emailAddress} onChange={(e) => setEmailAddress(e.target.value)} />
-              </Form.Group>
-
-              <Form.Group controlId="formBasicPassword">
-                <Form.Label>Password</Form.Label>
-                <Form.Control type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
-              </Form.Group>
-              <Button onClick={() => signInWithEmailAndPassword()}>
-                Submit
+    <div className="log-in-page">
+      <div className="log-in-header">
+        <div className="head">
+          <a href="/">Placeholder - Logo</a>
+        </div>
+      </div>
+      <Container fluid>
+        <div className="log-in-content">
+          <Row>
+            <Col xs={12}>
+              <Button className="log-in-with-button google" onClick={() => signInWithGoogle()}>
+                Continue with Google
               </Button>
-            </Form>
-          </div>
-        </Tab>
-        <Tab eventKey="signUp" title="Sign Up">
-          <div className="sign-up-container">
-            <Form>
-              <Form.Group controlId="formBasicEmail">
-                <Form.Label>Email address</Form.Label>
-                <Form.Control type="email" value={emailAddress} onChange={(e) => setEmailAddress(e.target.value)} />
-                <Form.Text className="text-muted">
-                  We will never share your email with anyone else.
-                </Form.Text>
-              </Form.Group>
-
-              <Form.Group controlId="formBasicPassword">
-                <Form.Label>Password</Form.Label>
-                <Form.Control type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
-              </Form.Group>
-              <Button onClick={() => signUpWithEmailAndPassword()}>
-                Submit
+            </Col>
+          </Row>
+          <Row>
+            <Col xs={12}>
+              <Button className="log-in-with-button facebook" onClick={() => signInWithGoogle()}>
+                Continue with facebook
               </Button>
-            </Form>
+            </Col>
+          </Row>
+          <Row>
+            <Col xs={12}>
+              <div className="divider">
+                <strong className="divider-title">or</strong>
+              </div>
+            </Col>
+          </Row>
+          <Form>
+            <Form.Group controlId="formBasicEmail">
+              <Form.Control placeholder="Email address" type="email" value={emailAddress} onChange={(e) => setEmailAddress(e.target.value)} />
+            </Form.Group>
+            <Form.Group controlId="formBasicPassword">
+              <Form.Control placeholder="Password" type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
+            </Form.Group>
+            <Row>
+              <Col xs={12} sm={6}>
+                <div className="checkbox">
+                  <Form.Group controlId="formBasicCheckbox">
+                    <Form.Check type="checkbox" label="Remember me" />
+                  </Form.Group>
+                </div>
+              </Col>
+              <Col xs={12} sm={6}>
+                <Button
+                  className="log-in-button"
+                  onClick={() => signInWithEmailAndPassword()}
+                >
+                  Log in
+                </Button>
+              </Col>
+            </Row>
+          </Form>
+          <Row>
+            <Col>
+              <a href="/">Forgot your password?</a>
+            </Col>
+          </Row>
+          <div id="sign-up-section">
+            <Row>
+              <Col xs={12}>
+                <div className="divider" />
+              </Col>
+            </Row>
+            <Row>
+              <Col>
+                <h4>Don&apos;t have an account?</h4>
+              </Col>
+            </Row>
+            <Row>
+              <Col xs={12}>
+                <Button className="log-in-with-button signup" onClick={() => signInWithGoogle()}>
+                  Sign up for Le-Classique
+                </Button>
+              </Col>
+            </Row>
           </div>
-        </Tab>
-
-      </Tabs>
-
-      <Button className="google-sign-in-button" onClick={() => signInWithGoogle()}>
-        Sign in with Google Account
-      </Button>
+          <Row>
+            <Col xs={12}>
+              <div className="divider" />
+              <p className="textMuted">Message about terms &amp; conditions and Privacy policy</p>
+            </Col>
+          </Row>
+        </div>
+        {/* .login-content */}
+      </Container>
+      {/* .container */}
     </div>
   );
 };
