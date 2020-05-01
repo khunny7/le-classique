@@ -1,78 +1,105 @@
 @import '../color.less';
 
-.sign-in-page {
-  height: 100%;
-  background-color: @darkThemeBackground;
-  color: @pureWhite;
-
-  // .sign-in-main-contents{
-  //     width: 21.87rem;
-  //     margin: auto;
-  //     padding: 1rem;
-  //     border: 1px solid @pureWhite;
-  // }
-  .sign-in-section {
-    padding-top: 3rem;
-    width: 24rem;
-    padding-left: 1rem;
-    padding-bottom: 3rem;
-    margin: 0 auto;
-
-    .sign-in-section-nav {
-      width: 21.87rem;
-      margin: auto;
-      border: none;
-    }
-
-    .sign-in-container,
-    .sign-up-container {
-      width: 21.87rem;
-      height: 16rem;
-      padding-bottom: 2rem;
-      border-bottom: 0.01rem solid;
-
-      .form-group {
-        margin-bottom: .8rem;
-
-      }
-
-      /*Simplify with maxin*/
-      .sign-in-or-up-button {
-        width: 100%;
-        background-color: @pointColor;
-        opacity: 0.8;
-        transition: 0.3s;
-        display: inline-block;
+.log-in-page {
+    a, a:link, a:visited {
+        color: @pointColor;
         text-decoration: none;
-        cursor: pointer;
-        border: 0;
-      }
-
-      .sign-in-or-up-button:hover {
-        opacity: 1;
-      }
     }
-  }
-
-  .sign-in-with-button-container {
-    width: 21.87rem;
-    margin-top: 1.6rem;
-
-    /*Simplify with maxin*/
-    .sign-in-with-button {
-      width: 100%;
-      background-color: @pointColor;
-      opacity: 0.8;
-      transition: 0.3s;
-      display: inline-block;
-      text-decoration: none;
-      cursor: pointer;
-      border: 0;
-      margin-bottom: .8rem;
+    text-align: center;
+    button {
+        text-transform: uppercase;
     }
-
-    .sign-in-with-button:hover {
-      opacity: 1;
+    height: 100%;
+    background-color: @darkThemeBackground;
+    color: @pureWhite;
+    .log-in-header {        
+        .head {
+            border-bottom: 1px solid rgba(255,255,255,.5);
+            padding: 25px 0 10px;
+            margin-bottom: 2.8rem;
+            text-align: center;
+            height: 110px;
+        }
     }
-  }
+    .log-in-content {
+        margin: 0 auto;
+        max-width: 450px;
+        .row {
+            margin-top: 15px;
+            margin-bottom: 1rem;
+        }
+        .row:first-child {
+            margin-top: 0;
+        }
+        .log-in-with-button{
+            width: 100%;            
+            opacity: 0.8;
+            transition: 0.3s;
+            display: inline-block;
+            text-decoration: none;
+            cursor: pointer;
+            border: 0;
+                        
+        }
+        .log-in-with-button.google {
+            background-color: @google;
+        }
+        .log-in-with-button.facebook {
+            background-color: @facebook;
+        }
+        .signup {
+            background-color: @pureWhite;
+            color: @darkThemeBackground;
+        }
+        .log-in-with-button:hover {
+            opacity: 1;
+        }
+        .divider {
+            border-top: 1px solid #d9dadc;
+            opacity: .7;
+            display: block;
+            line-height: 1px;
+            margin: 1rem 0;
+            position: relative;
+            text-align: center;
+            .divider-title {
+                font-size: 12px;
+                letter-spacing: 1px;
+                padding: 0 20px;
+                text-transform: uppercase;
+                background-color: @darkThemeBackground;            
+            }
+        }
+        .checkbox {
+            position: relative;
+            display: block;
+            margin-top: 10px;
+            margin-bottom: 10px;
+            text-align: left;
+        }
+        .log-in-button {
+           width: 100%;
+           background-color: @pointColor;
+           opacity: 0.8;
+           transition: 0.3s;
+           display: inline-block;
+           text-decoration: none;
+           cursor: pointer;
+           border: 0;
+        }
+        .log-in-button:hover {
+            opacity: 1;
+        }
+        #sign-up-section {
+            h4 {
+                font-size: 1.125rem;
+            }
+        }
+        .textMuted {
+            color: @mutedGray;
+            font-size: .7rem;
+            margin: .5rem 0 1rem;
+        }
+    }
 }
+
