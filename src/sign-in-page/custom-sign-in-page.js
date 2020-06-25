@@ -125,7 +125,7 @@ const SignInPage = () => {
             </Row>
             <Row>
               <Col xs={12}>
-                <Button className="log-in-with-button signup" onClick={() => signInWithGoogle()}>
+                <Button className="log-in-with-button signup" onClick={() => history.push('/signup')}>
                   Sign up for Le-Classique
                 </Button>
               </Col>

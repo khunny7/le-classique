@@ -47,7 +47,7 @@
     "eslint-plugin-react-hooks": "^1.7.0",
     "file-loader": "^4.2.0",
     "firebase-cli": "^1.2.0",
-    "http-server": "^0.12.1",
+    "http-server": "^0.12.3",
     "jest": "^25.2.6",
     "jest-puppeteer": "^4.4.0",
     "jest-transform-stub": "^2.0.0",
@@ -59,7 +59,7 @@
     "style-loader": "^1.0.0",
     "webpack": "^4.41.0",
     "webpack-cli": "^3.3.9",
-    "webpack-dev-server": "^3.8.1"
+    "webpack-dev-server": "^3.11.0"
   },
   "dependencies": {
     "@gxl/epub-parser": "^2.0.2",
