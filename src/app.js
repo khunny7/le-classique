@@ -5,6 +5,7 @@ import {
   Route,
 } from 'react-router-dom';
 import SignInPage from './sign-in-page/custom-sign-in-page';
+import SignUpPage from './sign-in-page/sign-up-page';
 import DashboardPage from './dashboard/dashboard-page';
 import BookReaderPage from './reader/book-reader-page';
 import BooksManagerPage from './books-manager/books-manager';
@@ -27,6 +28,9 @@ const App = () => (
           </Route>
           <Route path="/login">
             <SignInPage />
+          </Route>
+          <Route path="/signup">
+            <SignUpPage />
           </Route>
           <Route path="/book">
             <BookReaderPage />
